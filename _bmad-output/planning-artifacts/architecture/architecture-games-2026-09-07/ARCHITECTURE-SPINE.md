@@ -37,7 +37,7 @@ flowchart TB
   end
   subgraph external [outside this repo]
     Play[xals-path.kevinmlogan.com]
-    Trailer[YouTube trailer / soundtrack]
+    Trailer[hero placeholder or remake trailer]
   end
   Components -->|"playUrl from props"| Play
   Components -->|"trailer and soundtrack from props"| Trailer
@@ -67,13 +67,13 @@ flowchart TB
 
 - **Binds:** theme tokens, type, section backgrounds, color mode
 - **Prevents:** cloning the portfolio's blue/neutral resume chrome onto the catalog
-- **Rule:** theme tokens on the game record are `theme.primary`, `theme.accent`, `theme.font`, `theme.colorMode` (`light` or `dark`, forced). `app/pages/index.vue` applies them once onto `UApp` / document CSS variables before sections render. Section components must not call `useColorMode`, must not inject stylesheets, and must not hardcode the meadow/dirt/purple palette as utilities. Per-section backgrounds are `public/` paths named on that section in Content.
+- **Rule:** theme tokens on the game record are `theme.primary`, `theme.accent`, `theme.font` (`Press Start 2P`), `theme.colorMode` (`dark` for Xal's Path). Visual system is the Phaser remake (dark BAM, region art), not the retired Intrigue meadow landing. `app/pages/index.vue` applies tokens once onto `UApp` / document CSS variables before sections render. Section components must not call `useColorMode`, must not inject stylesheets, and must not use the old Intrigue meadow/dirt/purple palette. Per-section backgrounds are cropped/edited files vendored from `xals-path` `develop` into `public/`.
 
 ### AD-5 — Kevin Logan brand, not Intrigue Games [ADOPTED]
 
 - **Binds:** wordmark, footer, socials, legal line, asset provenance
 - **Prevents:** presenting a studio the site no longer has rights to; pulling art from `intrigue-games.github.io`
-- **Rule:** identity is Kevin Logan / games.kevinmlogan.com. No Intrigue logos, LLC copyright, or Intrigue social accounts. Visual assets come from `kevinlogan94/xals-path` (`develop`) or new files created for this repo.
+- **Rule:** identity is Kevin Logan / games.kevinmlogan.com. No Intrigue logos, LLC copyright, or Intrigue social accounts. Visual assets come from `kevinlogan94/xals-path` (`develop`) — copy and crop them for catalog sections the way the old marketing site cropped game art. Do not pull binaries from `intrigue-games.github.io`.
 
 ### AD-6 — Dependency direction [ADOPTED]
 
@@ -99,7 +99,7 @@ flowchart LR
 
 - **Binds:** `CATALOG-PAGE.md`, featured-game Content schema, nav anchors
 - **Prevents:** dropping Play, reviving store "Coming Soon" as current availability, or inventing a different section set per builder
-- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Music**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. `playUrl` is required. The primary control label is **Play**, never **Download**. Historical store links may appear as history inside Play; they are not current CTAs. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config.
+- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Music**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. `playUrl` is required. The primary control label is **Play**, never **Download**. Do not mention App Store or Google Play. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config. Footer includes a `mailto:` to the site email.
 
 ### AD-9 — Portfolio is a construction reference, not a skin [ADOPTED]
 
@@ -111,7 +111,7 @@ flowchart LR
 
 - **Binds:** `content/games/*.yml`, Content collection schema, `index.vue` props
 - **Prevents:** flat vs nested YAML forks; sections inventing their own field names
-- **Rule:** each game document is one YAML file with this root shape (no alternate nesting): `slug`, `seo.title`, `seo.description`, `playUrl`, `repoUrl`, `hero` (`title`, `subtitle`, `pitch`, `trailerUrl`, `background`), `story` (`title`, `body`, `media`), `gameplay` (`title`, `slides` of `title`, `description`, `image`), `music` (`title`, `soundtrackUrl`, `background`), `play` (`title`, `body`, `desktopHint`, `mobileHint`), `theme` (`primary`, `accent`, `font`, `colorMode`). Extra keys are allowed; required keys are not renamed.
+- **Rule:** each game document is one YAML file with this root shape (no alternate nesting): `slug`, `seo.title`, `seo.description`, `playUrl`, `repoUrl`, `hero` (`title`, `subtitle`, `pitch`, `trailer.status` of `placeholder` or `ready`, `trailer.url` required only when `ready`, `background`), `story` (`title`, `body`, `media`), `gameplay` (`title`, `slides` of `title`, `description`, `image`), `music` (`title`, `soundtrackUrl`, `background`), `play` (`title`, `body`, `desktopHint`, `mobileHint`), `theme` (`primary`, `accent`, `font`, `colorMode`). Extra keys are allowed; required keys are not renamed.
 
 ### AD-11 — Vendored catalog assets [ADOPTED]
 
@@ -123,7 +123,19 @@ flowchart LR
 
 - **Binds:** Hero/Nav/Play CTAs, `playUrl`, `play.desktopHint`, `play.mobileHint`
 - **Prevents:** a fake Download that implies App Store/Play; catalog trying to A2HS a different origin; desktop and mobile sending people to two different products
-- **Rule:** every Play control (nav, hero, Play section) opens the same `playUrl` in the browser. Desktop copy is `play.desktopHint` (play in the browser). Mobile copy is `play.mobileHint` (open the link, then Add to Home Screen for fullscreen). Show `desktopHint` at 768px and up, `mobileHint` below 768px; never two buttons or two URLs. The catalog must not call `beforeinstallprompt`, must not ship a second manifest for the game, and must not iframe the game to install it. Add-to-Home-Screen belongs to the game origin; Xal's Path already gates portrait phones in `installGate.ts`. Store listings are historical only.
+- **Rule:** every Play control (nav, hero, Play section) opens the same `playUrl` in the **same tab**. Desktop copy is `play.desktopHint` (play in the browser). Mobile copy is `play.mobileHint` (open the link, then Add to Home Screen for fullscreen). Show `desktopHint` at 768px and up, `mobileHint` below 768px; never two buttons or two URLs. The catalog must not call `beforeinstallprompt`, must not ship a second manifest for the game, and must not iframe the game to install it. Add-to-Home-Screen belongs to the game origin; Xal's Path already gates portrait phones in `installGate.ts`. Do not mention store listings.
+
+### AD-13 — Contact is mailto [ADOPTED]
+
+- **Binds:** footer (and any Contact control), `app.config.ts`
+- **Prevents:** a Netlify form, a second email address, or burying contact
+- **Rule:** site email is `kevinmlogan7@gmail.com`, stored only in `app.config.ts`. Contact is a visible `mailto:` link in the footer. No contact form in v1.
+
+### AD-14 — Catalog has its own GA4 stream [ADOPTED]
+
+- **Binds:** `nuxt-gtag` (or equivalent), Netlify env
+- **Prevents:** pasting the game measurement ID onto this origin; committing the ID to git
+- **Rule:** create a new GA4 web data stream for `games.kevinmlogan.com` (same Google Analytics account is fine). Put that stream's measurement ID in Netlify env (`NUXT_PUBLIC_GTAG_ID` or equivalent). Do not reuse `G-7Z01JPEF60` from xals-path. If the env var is unset, ship without analytics.
 
 ## Consistency Conventions
 
@@ -132,7 +144,7 @@ flowchart LR
 | Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Vue sections `GameHero`, `GameStory`, `GameGameplay`, `GameMusic`, `GamePlay`. Chrome: `AppHeader`, `AppFooter`. |
 | Data | Dates ISO-8601. Play/trailer/soundtrack/repo URLs absolute HTTPS. Media paths site-root. IDs are slugs. Collection defined in `content.config.ts`. |
 | State | Catalog is static; no client catalog store. Color mode is `theme.colorMode` on the featured document, applied once by `index.vue`. `play.desktopHint` vs `play.mobileHint` is CSS viewport (match the game's 768px phone/desktop split), not two destinations. |
-| Config | `featuredSlug` and author/social/legal chrome only in `app.config.ts`. Game strings only in Content. |
+| Config | `featuredSlug`, email (`kevinmlogan7@gmail.com`), author/social/legal chrome only in `app.config.ts`. Game strings only in Content. Analytics ID only in Netlify env. |
 | Package manager | pnpm; `packageManager` field from the Nuxt UI starter. |
 | Commits | gitmoji shortcode prefix per repo convention. |
 
@@ -177,7 +189,8 @@ flowchart TB
   Browser --> CDN[Netlify CDN prerendered HTML]
   CDN --> Index["/ featured landing"]
   Index -->|Play CTA| GameHost[xals-path.kevinmlogan.com]
-  Index -->|media| YT[YouTube]
+  Index -->|soundtrack| YT[YouTube]
+  Index -->|mailto| Mail[kevinmlogan7@gmail.com]
 ```
 
 ```mermaid
@@ -205,8 +218,9 @@ erDiagram
 | Game copy/media/URLs | `content/games/*.yml` | AD-3, AD-6, AD-10 |
 | Themed sections | `app/components/Game*` | AD-4, AD-8 |
 | Play handoff | `playUrl` + `play.*` hints | AD-2, AD-8, AD-12 |
-| Brand/legal | `AppFooter` + `app.config.ts` | AD-5, AD-8 |
+| Brand/legal | `AppFooter` + `app.config.ts` | AD-5, AD-8, AD-13 |
 | Assets | `public/games/<slug>/` | AD-5, AD-11 |
+| Analytics | Netlify env + nuxt-gtag | AD-14 |
 | Deploy | `netlify.toml` + generate | AD-7 |
 | Engineering patterns | Nuxt UI starter + portfolio | AD-9 |
 
@@ -214,10 +228,9 @@ erDiagram
 
 - `/games` index and `/games/[slug]` — wait until a second game exists.
 - Iframe or in-catalog Phaser mount — wait until a product reason beats "open playUrl".
-- Netlify Database, Blobs, Identity, forms, required Functions — no dynamic catalog data in v1.
-- Analytics vendor — optional `nuxt-gtag` after the site is live; ID in Netlify env.
+- Netlify Database, Blobs, Identity, forms, required Functions — no dynamic catalog data in v1. Contact is mailto (AD-13).
 - i18n, auth, user accounts.
 - Changelog/blog on this host — portfolio already holds Xal's Path posts; link out if needed.
-- Display font if PixelOperator cannot be licensed — `@nuxt/fonts` substitute, same pixel-RPG role; still named in `theme.font`.
+- Remake trailer YouTube URL — set `hero.trailer.status` to `ready` and fill `hero.trailer.url` when it exists.
 - Catalog `?from=` query on `playUrl` so the game can tailor the install gate — only if the game repo adds it.
 - `@nuxt/content` sqlite adapter — use Content 3.16 defaults on Node 24; do not copy portfolio `better-sqlite3` unless generate fails on Netlify.
