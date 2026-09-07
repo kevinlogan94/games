@@ -26,7 +26,8 @@ export default defineContentConfig({
         story: z.object({
           title: z.string(),
           body: z.string(),
-          media: z.string()
+          media: z.string(),
+          mediaAlt: z.string().optional()
         }),
         gameplay: z.object({
           title: z.string(),

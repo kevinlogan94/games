@@ -7,7 +7,10 @@ repoUrl: https://github.com/kevinlogan94/xals-path
 hero:
   title: Xal's Path
   subtitle: A story-driven clicker
-  pitch: Channel Influence, uncover a morally layered story, and play in the browser.
+  pitch: >-
+    A stranger is summoned to a blighted realm to aid Xal, a druid.
+    Channel Influence, follow a morally layered story, and play the remake
+    in the browser.
   trailer:
     status: placeholder
   background: /games/xals-path/hero.png
@@ -19,6 +22,7 @@ story:
     counts, and how good and evil shift with the teller — a story about
     perspective, power, and the relativity of right and wrong.
   media: /games/xals-path/story.png
+  mediaAlt: Pixel portrait of Xal, a white-bearded druid in green robes with gold trim
 gameplay:
   title: Gameplay
   slides:
@@ -36,7 +40,7 @@ gameplay:
       image: /games/xals-path/gameplay-rewards.png
 play:
   title: Play
-  body: Open the live remake in this tab. The catalog is the story; the game origin is the play.
+  body: This is the web remake. Play opens the live game in this tab.
   desktopHint: Play in the browser at xals-path.kevinmlogan.com.
   mobileHint: Open Play, then Add to Home Screen on the game site for fullscreen.
   soundtrackUrl: https://www.youtube.com/watch?v=hDrSy_biKRo

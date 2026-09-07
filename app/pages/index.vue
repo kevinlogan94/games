@@ -49,6 +49,7 @@ const themeStyle = {
       :title="game.story.title"
       :body="game.story.body"
       :media="game.story.media"
+      :media-alt="game.story.mediaAlt"
     />
     <GameGameplay
       :title="game.gameplay.title"

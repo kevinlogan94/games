@@ -21,7 +21,8 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Press Start 2P', provider: 'google' }
+      { name: 'Press Start 2P', provider: 'google' },
+      { name: 'Public Sans', provider: 'google' }
     ]
   },
 

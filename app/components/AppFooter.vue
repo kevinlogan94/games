@@ -9,15 +9,28 @@ const year = new Date().getFullYear()
 </script>
 
 <template>
-  <footer class="border-t border-[#3d5c3d] bg-[#0d1a0d] px-4 py-8 text-sm text-white/80">
-    <div class="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+  <footer class="border-t border-bam-line bg-bam-panel px-4 py-10 text-sm text-bam-mist">
+    <div class="mx-auto flex max-w-5xl flex-col gap-4 min-[768px]:flex-row min-[768px]:items-center min-[768px]:justify-between">
       <p>© {{ year }} Kevin Logan</p>
-      <div class="flex flex-wrap gap-4">
-        <a :href="`mailto:${email}`" class="text-white hover:underline">
+      <div class="flex flex-wrap gap-x-5 gap-y-2">
+        <a
+          :href="`mailto:${email}`"
+          class="text-bam-ink underline decoration-bam-line underline-offset-4 hover:text-[var(--catalog-accent)]"
+        >
           Contact
         </a>
-        <a :href="github" class="hover:text-white hover:underline">GitHub</a>
-        <a :href="portfolio" class="hover:text-white hover:underline">Portfolio</a>
+        <a
+          :href="github"
+          class="hover:text-bam-ink"
+        >
+          GitHub
+        </a>
+        <a
+          :href="portfolio"
+          class="hover:text-bam-ink"
+        >
+          Portfolio
+        </a>
       </div>
     </div>
   </footer>

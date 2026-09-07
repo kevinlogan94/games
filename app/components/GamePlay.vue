@@ -11,41 +11,45 @@ defineProps({
 </script>
 
 <template>
-  <section id="play" class="bg-[#0d1a0d] px-4 py-20 text-white">
+  <section
+    id="play"
+    class="scroll-mt-[4.75rem] border-t border-bam-line bg-bam-ground px-4 py-20 text-bam-ink min-[768px]:py-28"
+  >
     <div class="mx-auto max-w-5xl">
-      <h2 class="font-display mb-4 text-lg sm:text-xl">
+      <h2 class="font-display mb-5 text-base leading-relaxed min-[768px]:text-lg">
         {{ title }}
       </h2>
-      <p class="mb-6 max-w-xl text-base text-white/90">
+      <p class="mb-8 max-w-[38rem] text-base leading-relaxed text-bam-mist">
         {{ body }}
       </p>
       <a
         :href="playUrl"
-        class="font-display inline-block border-2 border-[#3d5c3d] bg-[#1a2e1a] px-6 py-3 text-xs text-white hover:bg-[#3d5c3d]"
+        class="catalog-play"
       >
         Play
       </a>
-      <p class="mt-4 hidden text-sm text-white/70 min-[768px]:block">
+      <p class="mt-4 hidden max-w-xl text-sm leading-relaxed text-bam-mist min-[768px]:block">
         {{ desktopHint }}
       </p>
-      <p class="mt-4 text-sm text-white/70 min-[768px]:hidden">
+      <p class="mt-4 max-w-xl text-sm leading-relaxed text-bam-mist min-[768px]:hidden">
         {{ mobileHint }}
       </p>
-      <div class="mt-8">
+      <div class="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-bam-line pt-8">
         <a
           :href="soundtrackUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="font-display inline-block border-2 border-[#3d5c3d] px-4 py-2 text-[10px] text-white hover:bg-[#1a2e1a]"
+          class="font-display inline-block border-2 border-bam-line px-4 py-2 text-[0.625rem] leading-relaxed text-bam-ink hover:bg-bam-panel"
         >
           Soundtrack
         </a>
-      </div>
-      <p class="mt-6 text-xs">
-        <a :href="repoUrl" class="text-white/50 underline hover:text-white/80">
+        <a
+          :href="repoUrl"
+          class="text-sm text-bam-mist underline decoration-bam-line underline-offset-4 hover:text-bam-ink"
+        >
           GitHub
         </a>
-      </p>
+      </div>
     </div>
   </section>
 </template>
