@@ -12,7 +12,7 @@ Nuxt 4, Nuxt UI, Tailwind, Nuxt Content. Package manager pnpm. Deploy: Netlify s
 
 ## Users
 
-Primary: people who want to understand and play Kevin Logan’s games. In v1 that means Xal’s Path — get the story and feel of the remake, then Play in the browser.
+Primary: people who want to understand and play Kevin Logan’s games. In v1 that means Xal’s Path: get the story and feel of the remake, then Play in the browser.
 
 Secondary: people arriving from the portfolio who want proof that Kevin ships games. They are not hiring-page or résumé visitors; a quiet Kevin Logan link is enough.
 
@@ -51,7 +51,7 @@ Undecided: second-game IA, in-catalog play, catalog `?from=` on playUrl, remake 
 ## Brand Commitments
 
 - Name: Kevin Logan. Site: games.kevinmlogan.com.
-- First listed game: Xal’s Path — story-driven idle/clicker; a stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
+- First listed game: Xal’s Path, a story-driven idle/clicker; a stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
 - Do not revive Intrigue Games branding or the retired meadow marketing site as current identity.
 - Catalog look follows the live remake: dark BAM ground (`#0d1a0d`), not the portfolio and not Intrigue meadow.
 - Type: Press Start 2P for wordmark, section titles, and Play. Readable UI type for nav, body, and captions. Do not use PixelOperator unless a license is confirmed.
@@ -66,8 +66,8 @@ Undecided: second-game IA, in-catalog play, catalog `?from=` on playUrl, remake 
 
 ## Product Principles
 
-1. Featured game first — one real landing beats an empty catalog grid.
-2. Play is a handoff — this site sells the visit; the game site is the product.
-3. One record per game — copy, media, and URLs live in the game document, not in page chrome.
-4. Honest availability — web Play only; no store or download theater.
-5. Kevin’s name, Kevin’s games — no retired studio identity.
+1. Featured game first: one real landing beats an empty catalog grid.
+2. Play is a handoff: this site sells the visit; the game site is the product.
+3. One record per game: copy, media, and URLs live in the game document, not in page chrome.
+4. Honest availability: web Play only; no store or download theater.
+5. Kevin’s name, Kevin’s games: no retired studio identity.

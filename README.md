@@ -6,7 +6,7 @@ This site lists games by Kevin Logan. The first entry is [Xal's Path](https://gi
 
 ## Games
 
-- **Xal's Path** — a mysterious stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land. Play at [xals-path.kevinmlogan.com](https://xals-path.kevinmlogan.com).
+- **Xal's Path**: a mysterious stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land. Play at [xals-path.kevinmlogan.com](https://xals-path.kevinmlogan.com).
 
 ## Development
 

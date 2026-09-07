@@ -29,7 +29,7 @@ Sticky. Xal's Path wordmark. Anchors: Story, Gameplay, Music, Play. Primary **Pl
 
 ### Hero
 
-Full-bleed remake art (vendored/cropped from `xals-path` `develop`). Title, "A story-driven clicker," pitch, **Play**. Trailer slot is a **placeholder** until the remake trailer exists — still + "Trailer coming soon." Do not embed the old mobile YouTube trailer. On small screens, one `play.mobileHint` line under Play.
+Full-bleed remake art (vendored/cropped from `xals-path` `develop`). Title, "A story-driven clicker," pitch, **Play**. Trailer slot is a **placeholder** until the remake trailer exists: still + "Trailer coming soon." Do not embed the old mobile YouTube trailer. On small screens, one `play.mobileHint` line under Play.
 
 ### Story
 
@@ -47,7 +47,7 @@ Button to the soundtrack YouTube (`hDrSy_biKRo`). Not an embed.
 
 One **Play** button, same tab, same URL. Desktop: play in the browser. Phone: short Home Screen hint; the game owns the install gate.
 
-One line that this is the web remake. **Do not mention App Store or Google Play** — they have been gone for years and only raise "can I get it on my phone store?"
+One line that this is the web remake. **Do not mention App Store or Google Play**. They have been gone for years and only raise "can I get it on my phone store?"
 
 Small GitHub text link. No Download label. No store badges.
 
@@ -61,7 +61,7 @@ Small GitHub text link. No Download label. No store badges.
 
 ## Visual direction
 
-Match the live game: dark (`#0d1a0d` range), Press Start 2P, BAM/region art. Pull frames from `develop` and crop them for sections, the way the old site cropped Unity art — new look, old *method*.
+Match the live game: dark (`#0d1a0d` range), Press Start 2P, BAM/region art. Pull frames from `develop` and crop them for sections, the way the old site cropped Unity art: new look, old *method*.
 
 ## Engineering shape (see spine)
 

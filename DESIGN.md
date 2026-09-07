@@ -80,7 +80,7 @@ components:
 
 ## Colors
 
-Ground `#0d1a0d`, panel `#1a2e1a`, line `#3d5c3d`, ink `#fff`, mist `#c5d4c5`, gold `#97752d`. Mist is a green-tinted secondary, not gray. Gold is accent only — never a fill for Play. Nuxt starter green (`#00DC82`) is not part of this system; the green scale is remapped to BAM so leftover UI primitives cannot resurrect it.
+Ground `#0d1a0d`, panel `#1a2e1a`, line `#3d5c3d`, ink `#fff`, mist `#c5d4c5`, gold `#97752d`. Mist is a green-tinted secondary, not gray. Gold is accent only, never a fill for Play. Nuxt starter green (`#00DC82`) is not part of this system; the green scale is remapped to BAM so leftover UI primitives cannot resurrect it.
 
 **The No Gray Rule.** Secondary text on BAM fields uses mist, not `white/50`.
 
@@ -106,13 +106,13 @@ Radius is 0. Controls are rectangles with 2px borders. Carousel chevrons are dra
 
 ## Components
 
-**Play** — primary CTA. Label is always `Play`. Same tab, `playUrl` from the game record. Pixel border; hover fills the line and gilds the border.
+**Play**: primary CTA. Label is always `Play`. Same tab, `playUrl` from the game record. Pixel border; hover fills the line and gilds the border.
 
-**Soundtrack** — secondary outline control on Play only. Opens YouTube in a new tab.
+**Soundtrack**: secondary outline control on Play only. Opens YouTube in a new tab.
 
-**Carousel** — prev/next 44px targets, dots, keyboard arrows, `aria-live` caption.
+**Carousel**: prev/next 44px targets, dots, keyboard arrows, `aria-live` caption.
 
-**Trailer** — still plus “Trailer coming soon.” Never a fake video player or the retired mobile trailer.
+**Trailer**: still plus “Trailer coming soon.” Never a fake video player or the retired mobile trailer.
 
 ## Do's and Don'ts
 

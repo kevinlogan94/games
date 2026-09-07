@@ -45,5 +45,5 @@ THESIS: Featured-game themed storefront; refuse a one-card studio index and rés
 OWN-WORLD: Dark BAM (`#0d1a0d` / `#1a2e1a` / `#3d5c3d` / `#fff`); cropped remake region art as section fields; Press Start 2P titles + readable body; pixel-border Play; no meadow/dirt/purple.
 STORY: Believe this is the web remake of Xal’s Path; Play in the browser.
 FIRST VIEWPORT: Sticky nav (wordmark left, anchors, Play right). Full-bleed hero art. Title + subtitle + pitch over the field. Play on the art; trailer placeholder beside or under, not a fake video. Mobile: one `play.mobileHint` line under Play.
-FORM: Architecture-pinned remake landing (CATALOG-PAGE.md). concept-seed skipped — user/brief pin beats the roll. seed: architecture-games-2026-09-07.
+FORM: Architecture-pinned remake landing (CATALOG-PAGE.md). concept-seed skipped: user/brief pin beats the roll. seed: architecture-games-2026-09-07.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
