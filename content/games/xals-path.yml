@@ -4,15 +4,21 @@ seo:
   description: A story-driven idle clicker. A stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
 playUrl: https://xals-path.kevinmlogan.com
 repoUrl: https://github.com/kevinlogan94/xals-path
+release:
+  version: '1.2'
+  scale: major
+  line: Rebuilt for the browser. Desktop, tablet, and phone.
+  note: Rebuilt in Phaser 3.
 hero:
   title: Xal's Path
   subtitle: A story-driven clicker game
   pitch: >-
     A stranger is summoned to a blighted realm to aid Xal, a druid.
-    Channel Influence, follow a morally layered story, and play the remake
-    in the browser.
+    This release rebuilds the game for the browser, with new art
+    and the same story.
   trailer:
     status: placeholder
+    caption: Before and after of this release. Coming soon.
   background: /games/xals-path/hero.png
 story:
   title: Story
@@ -40,7 +46,7 @@ gameplay:
       image: /games/xals-path/gameplay-rewards.png
 play:
   title: Play
-  body: This is the web remake. Play opens the live game in this tab.
+  body: Play opens the live game in this tab.
   desktopHint: Play in the browser at xals-path.kevinmlogan.com.
   mobileHint: Open Play, then Add to Home Screen on the game site for fullscreen.
   soundtrackUrl: https://www.youtube.com/watch?v=hDrSy_biKRo

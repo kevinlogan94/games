@@ -13,13 +13,20 @@ export default defineContentConfig({
         }),
         playUrl: z.string(),
         repoUrl: z.string(),
+        release: z.object({
+          version: z.string(),
+          scale: z.enum(['major', 'patch']),
+          line: z.string(),
+          note: z.string()
+        }),
         hero: z.object({
           title: z.string(),
           subtitle: z.string(),
           pitch: z.string(),
           trailer: z.object({
             status: z.enum(['placeholder', 'ready']),
-            url: z.string().optional()
+            url: z.string().optional(),
+            caption: z.string()
           }),
           background: z.string()
         }),

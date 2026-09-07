@@ -109,10 +109,16 @@ function onCarouselKey(event) {
             {{ game.hero.title }}
           </h1>
           <p class="font-display mt-4 text-[0.625rem] leading-relaxed text-[var(--catalog-accent)] min-[768px]:text-xs">
-            {{ game.hero.subtitle }}
+            Version {{ game.release.version }} · {{ game.hero.subtitle }}
           </p>
           <p class="mt-5 max-w-[38rem] text-base leading-relaxed text-bam-mist">
             {{ game.hero.pitch }}
+          </p>
+          <p
+            v-if="game.release.scale === 'major'"
+            class="mt-3 max-w-[38rem] text-base leading-relaxed text-bam-ink"
+          >
+            {{ game.release.line }}
           </p>
           <div class="mt-7">
             <a
@@ -126,16 +132,25 @@ function onCarouselKey(event) {
             </p>
           </div>
         </div>
-        <aside
-          v-if="game.hero.trailer.status === 'placeholder'"
-          class="w-full max-w-sm border-2 border-bam-line bg-bam-panel/90 p-3"
-        >
+        <aside class="w-full max-w-sm border-2 border-bam-line bg-bam-panel/90 p-3">
           <div
             class="aspect-video border border-bam-line bg-bam-ground bg-cover bg-center"
             :style="{ backgroundImage: game.hero.background ? `url(${game.hero.background})` : undefined }"
           />
-          <p class="mt-3 text-sm text-bam-mist">
-            Trailer coming soon
+          <a
+            v-if="game.hero.trailer.status === 'ready' && game.hero.trailer.url"
+            :href="game.hero.trailer.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-3 block text-sm text-bam-ink underline decoration-bam-line underline-offset-4 hover:text-[var(--catalog-accent)]"
+          >
+            {{ game.hero.trailer.caption }}
+          </a>
+          <p
+            v-else
+            class="mt-3 text-sm text-bam-mist"
+          >
+            {{ game.hero.trailer.caption }}
           </p>
         </aside>
       </div>
@@ -315,6 +330,9 @@ function onCarouselKey(event) {
           >
             GitHub
           </a>
+          <p class="text-sm text-bam-mist">
+            Version {{ game.release.version }}. {{ game.release.note }}
+          </p>
         </div>
       </div>
     </section>
