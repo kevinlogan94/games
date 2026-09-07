@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-07T16:45:00.000Z",
+  "title": "Design System: games catalog",
+  "extensions": {
+    "colorMeta": {
+      "bam-ground": { "role": "primary", "displayName": "BAM Ground", "canonical": "#0d1a0d", "tonalRamp": ["#071007", "#0d1a0d", "#1a2e1a", "#2a422a", "#3d5c3d", "#6d8f6d", "#9bb59b", "#c5d4c5"] },
+      "bam-panel": { "role": "neutral", "displayName": "BAM Panel", "canonical": "#1a2e1a", "tonalRamp": ["#0d1a0d", "#152615", "#1a2e1a", "#2a422a", "#3d5c3d", "#6d8f6d", "#9bb59b", "#e4efe4"] },
+      "bam-line": { "role": "neutral", "displayName": "BAM Line", "canonical": "#3d5c3d", "tonalRamp": ["#1a2e1a", "#2a422a", "#3d5c3d", "#6d8f6d", "#9bb59b", "#c5d4c5", "#e4efe4", "#ffffff"] },
+      "bam-gold": { "role": "accent", "displayName": "BAM Gold", "canonical": "#97752d", "tonalRamp": ["#3d2e12", "#5c4518", "#7a5c22", "#97752d", "#b08a3a", "#c4a45a", "#d4c08a", "#efe6c8"] },
+      "bam-mist": { "role": "neutral", "displayName": "BAM Mist", "canonical": "#c5d4c5", "tonalRamp": ["#3d5c3d", "#6d8f6d", "#9bb59b", "#c5d4c5", "#d5e0d5", "#e4efe4", "#f2f7f2", "#ffffff"] },
+      "bam-ink": { "role": "neutral", "displayName": "BAM Ink", "canonical": "#ffffff", "tonalRamp": ["#0d1a0d", "#3d5c3d", "#9bb59b", "#c5d4c5", "#e4efe4", "#f2f7f2", "#fafcfa", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Wordmark, section titles, Play." },
+      "subtitle": { "displayName": "Pixel subtitle", "purpose": "Hero subtitle and compact Play." },
+      "body": { "displayName": "Body", "purpose": "Pitch, story, play copy." },
+      "caption": { "displayName": "Caption", "purpose": "Hints, trailer label, footer." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "bam-ease", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Title-screen veil lift and copy settle." },
+      { "name": "reduce", "value": "prefers-reduced-motion: reduce", "purpose": "Kill veil and copy animation; keep scroll instant." }
+    ],
+    "breakpoints": [
+      { "name": "play-hint", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Play",
+      "kind": "button",
+      "refersTo": "button-play",
+      "description": "Primary same-tab handoff. Label is always Play.",
+      "html": "<a class=\"ds-play\" href=\"#\">Play</a>",
+      "css": ".ds-play { display: inline-block; font-family: 'Press Start 2P', cursive; font-size: 0.75rem; line-height: 1.6; color: #fff; background: #1a2e1a; border: 2px solid #3d5c3d; padding: 0.75rem 1.5rem; text-decoration: none; } .ds-play:hover { background: #3d5c3d; border-color: #97752d; } .ds-play:focus-visible { outline: 2px solid #97752d; outline-offset: 3px; }"
+    },
+    {
+      "name": "Soundtrack",
+      "kind": "button",
+      "refersTo": "button-soundtrack",
+      "description": "Secondary outbound YouTube control on the Play section.",
+      "html": "<a class=\"ds-soundtrack\" href=\"#\">Soundtrack</a>",
+      "css": ".ds-soundtrack { display: inline-block; font-family: 'Press Start 2P', cursive; font-size: 10px; line-height: 1.6; color: #fff; background: transparent; border: 2px solid #3d5c3d; padding: 8px 16px; text-decoration: none; } .ds-soundtrack:hover { background: #1a2e1a; } .ds-soundtrack:focus-visible { outline: 2px solid #97752d; outline-offset: 3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Title screen for the blighted realm.",
+    "overview": "The catalog landing is the Phaser remake’s frontispiece: dark BAM ground, cropped region art, pixel wordmark, one Play handoff. It is not a studio grid, not a résumé, and not the retired meadow marketing site.",
+    "keyCharacteristics": [
+      "Full-bleed remake art with a left/bottom shade so type sits on the realm, not on a card",
+      "Press Start 2P for wordmark, titles, and Play; Public Sans for everything people read",
+      "Square pixel borders, no radius, gold only as accent",
+      "Soundtrack lives on Play as a quiet outbound button, never its own section"
+    ],
+    "rules": [
+      { "name": "The Realm Rule", "body": "If the art were removed, the page should still read as Xal’s Path: forest-black, moss line, gold, pixel type.", "section": "colors" },
+      { "name": "The No Gray Rule", "body": "Secondary text on BAM fields uses mist, not white/50.", "section": "colors" },
+      { "name": "The Pixel Title Rule", "body": "Wordmark, section titles, and Play use the display face. Nav anchors, body, hints, and footer use the readable face.", "section": "typography" },
+      { "name": "The Close Rule", "body": "Play is a handoff, not a restatement of Hero: same playUrl, hints, soundtrack, GitHub.", "section": "layout" }
+    ],
+    "dos": [
+      "Do vendor remake art under public/games/<slug>/ and let missing media fall back to a BAM field.",
+      "Do keep Game* components props-only; copy and URLs live in Content.",
+      "Do show mobileHint below 768px and desktopHint at 768px and up."
+    ],
+    "donts": [
+      "Don't mention App Store, Google Play, Download, Intrigue, or X/Twitter.",
+      "Don't embed Phaser, iframe the game, or invent testimonials/store history.",
+      "Don't add a Music section or scroll-snap."
+    ]
+  }
+}

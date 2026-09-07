@@ -1,5 +1,11 @@
 node_modules/
+dist
 dist/
+.output
+.data
+.nuxt
+.nitro
+.cache
 .env*
 .DS_Store
 .netlify

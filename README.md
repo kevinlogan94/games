@@ -12,7 +12,13 @@ This site lists games by Kevin Logan. The first entry is [Xal's Path](https://gi
 
 This repo is the catalog site only. Individual games live in their own repositories.
 
-Stack (planned): Nuxt, Nuxt UI, Tailwind. Deployed on Netlify.
+```bash
+pnpm install
+pnpm dev
+pnpm generate
+```
+
+Stack: Nuxt 4, Nuxt UI, Tailwind, Nuxt Content. Package manager: pnpm. Deploy: Netlify static generate (`pnpm generate`, publish `.output/public`).
 
 v1: the homepage is the Xal's Path catalog landing, not a multi-game grid. Architecture:
 
