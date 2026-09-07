@@ -18,7 +18,7 @@ pnpm dev
 pnpm generate
 ```
 
-Stack: Nuxt 4, Nuxt UI, Tailwind, Nuxt Content. Package manager: pnpm. Deploy: Netlify static generate (`pnpm generate`, publish `.output/public`).
+Stack: Nuxt 4, Nuxt UI, Tailwind, Nuxt Content. Package manager: pnpm. Deploy: Netlify static generate (`pnpm generate`, publish `dist`).
 
 v1: the homepage is the Xal's Path catalog landing, not a multi-game grid. Architecture:
 

@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Nuxt 4, Nuxt UI, Tailwind, Nuxt Content. Package manager pnpm. Deploy: Netlify static generate (`pnpm generate`, publish `.output/public`). Confirmed by the user from existing architecture planning; the app scaffold is not in the repo yet.
+Nuxt 4, Nuxt UI, Tailwind, Nuxt Content. Package manager pnpm. Deploy: Netlify static generate (`pnpm generate`, publish `dist`). On Netlify, Nitro uses the `netlify-static` preset and writes `dist` instead of `.output/public`.
 
 ## Users
 
