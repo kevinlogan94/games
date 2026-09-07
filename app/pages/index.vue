@@ -151,9 +151,9 @@ function onCarouselKey(event) {
             v-if="game.story.media"
             :src="game.story.media"
             :alt="game.story.mediaAlt"
-            class="mx-auto w-full max-w-xs object-contain"
-            width="345"
-            height="375"
+            class="mx-auto w-full max-w-xs object-contain object-center"
+            width="500"
+            height="750"
           >
           <div
             v-else
