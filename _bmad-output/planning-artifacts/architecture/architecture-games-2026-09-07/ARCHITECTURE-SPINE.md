@@ -90,7 +90,7 @@ flowchart LR
 
 - **Binds:** deploy, env, data stores
 - **Prevents:** introducing Database/Blobs/Identity for a brochure site; SSR-only routes that cannot prerender
-- **Rule:** Netlify production command is `pnpm generate`; publish directory is `.output/public`; `nitro.prerender.crawlLinks` is true. `NODE_VERSION` is `24`. v1 uses no Netlify Database, Blobs, Identity, or serverless functions required to render `/`. Secrets and analytics IDs live in Netlify env, never in git. Do not rely on Netlify's default `nuxt build` + Functions detection.
+- **Rule:** Netlify production command is `pnpm generate`; publish directory is `dist` (Nitro `netlify-static` output, not `.output/public`); `nitro.prerender.crawlLinks` is true. `NODE_VERSION` is `24`. v1 uses no Netlify Database, Blobs, Identity, or serverless functions required to render `/`. Secrets and analytics IDs live in Netlify env, never in git. Do not rely on Netlify's default `nuxt build` + Functions detection.
 
 ### AD-8: Featured landing section contract [ADOPTED]
 
@@ -158,7 +158,7 @@ Verified 2026-09-07 against npm and `nuxt-ui-templates/starter` `package.json`. 
 | TypeScript | 6.0.3 |
 | pnpm | 11.24.0 |
 | Node | 24 |
-| Netlify | Git-linked; generate + `.output/public` |
+| Netlify | Git-linked; generate + `dist` |
 | Starter | `npm create nuxt@latest -- -t ui` |
 
 ## Structural Seed
