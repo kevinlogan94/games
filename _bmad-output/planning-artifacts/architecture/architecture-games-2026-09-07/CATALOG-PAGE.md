@@ -1,7 +1,7 @@
 ---
 name: xals-path-catalog-page
 type: discussion
-status: draft
+status: final
 created: 2026-09-07
 updated: 2026-09-07
 spine: ARCHITECTURE-SPINE.md

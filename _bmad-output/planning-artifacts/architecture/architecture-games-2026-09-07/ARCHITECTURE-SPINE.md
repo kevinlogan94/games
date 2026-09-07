@@ -5,7 +5,7 @@ purpose: build-substrate
 altitude: feature
 paradigm: content-driven themed storefront
 scope: kevinlogan94/games — public catalog at games.kevinmlogan.com; v1 presents Xal's Path
-status: draft
+status: final
 created: 2026-09-07
 updated: 2026-09-07
 binds: [featured-landing, game-records, catalog-chrome, play-handoff, netlify-static]
