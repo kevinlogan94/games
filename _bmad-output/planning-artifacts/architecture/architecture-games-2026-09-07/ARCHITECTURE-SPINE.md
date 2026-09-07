@@ -79,7 +79,7 @@ flowchart TB
 
 - **Binds:** all catalog modules
 - **Prevents:** components fetching ad-hoc URLs that bypass Content; pages importing game-repo code
-- **Rule:** `app/pages` → `app/components` → `public/` files named by Content. Components do not read `content/` themselves. Game-specific outbound URLs (`playUrl`, `trailerUrl`, `soundtrackUrl`, `repoUrl`) live only on the game record. Site chrome URLs (portfolio, GitHub, X, email) live only in `app.config.ts`. No component may duplicate those literals.
+- **Rule:** `app/pages` → `app/components` → `public/` files named by Content. Components do not read `content/` themselves. Game-specific outbound URLs (`playUrl`, `hero.trailer.url`, `soundtrackUrl`, `repoUrl`) live only on the game record. Site chrome URLs (portfolio, GitHub, X, email) live only in `app.config.ts`. No component may duplicate those literals.
 
 ```mermaid
 flowchart LR
@@ -131,11 +131,11 @@ flowchart LR
 - **Prevents:** a Netlify form, a second email address, or burying contact
 - **Rule:** site email is `kevinmlogan7@gmail.com`, stored only in `app.config.ts`. Contact is a visible `mailto:` link in the footer. No contact form in v1.
 
-### AD-14 — Catalog has its own GA4 stream [ADOPTED]
+### AD-14 — Catalog analytics is after first ship [ADOPTED]
 
-- **Binds:** `nuxt-gtag` (or equivalent), Netlify env
-- **Prevents:** pasting the game measurement ID onto this origin; committing the ID to git
-- **Rule:** create a new GA4 web data stream for `games.kevinmlogan.com` (same Google Analytics account is fine). Put that stream's measurement ID in Netlify env (`NUXT_PUBLIC_GTAG_ID` or equivalent). Do not reuse `G-7Z01JPEF60` from xals-path. If the env var is unset, ship without analytics.
+- **Binds:** later analytics work, Netlify env, whether the game's GA id may be reused
+- **Prevents:** blocking the first catalog build on GA setup; later pasting `G-7Z01JPEF60` onto this origin
+- **Rule:** do not add `nuxt-gtag` (or any analytics tag) in the first build. After the site exists, add a new GA4 web data stream for `games.kevinmlogan.com` (same Google account is fine), put that stream's measurement ID in Netlify env, and never reuse the game's `G-7Z01JPEF60`.
 
 ## Consistency Conventions
 
@@ -144,7 +144,7 @@ flowchart LR
 | Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Vue sections `GameHero`, `GameStory`, `GameGameplay`, `GameMusic`, `GamePlay`. Chrome: `AppHeader`, `AppFooter`. |
 | Data | Dates ISO-8601. Play/trailer/soundtrack/repo URLs absolute HTTPS. Media paths site-root. IDs are slugs. Collection defined in `content.config.ts`. |
 | State | Catalog is static; no client catalog store. Color mode is `theme.colorMode` on the featured document, applied once by `index.vue`. `play.desktopHint` vs `play.mobileHint` is CSS viewport (match the game's 768px phone/desktop split), not two destinations. |
-| Config | `featuredSlug`, email (`kevinmlogan7@gmail.com`), author/social/legal chrome only in `app.config.ts`. Game strings only in Content. Analytics ID only in Netlify env. |
+| Config | `featuredSlug`, email (`kevinmlogan7@gmail.com`), author/social/legal chrome only in `app.config.ts`. Game strings only in Content. |
 | Package manager | pnpm; `packageManager` field from the Nuxt UI starter. |
 | Commits | gitmoji shortcode prefix per repo convention. |
 
@@ -220,7 +220,6 @@ erDiagram
 | Play handoff | `playUrl` + `play.*` hints | AD-2, AD-8, AD-12 |
 | Brand/legal | `AppFooter` + `app.config.ts` | AD-5, AD-8, AD-13 |
 | Assets | `public/games/<slug>/` | AD-5, AD-11 |
-| Analytics | Netlify env + nuxt-gtag | AD-14 |
 | Deploy | `netlify.toml` + generate | AD-7 |
 | Engineering patterns | Nuxt UI starter + portfolio | AD-9 |
 
@@ -229,6 +228,7 @@ erDiagram
 - `/games` index and `/games/[slug]` — wait until a second game exists.
 - Iframe or in-catalog Phaser mount — wait until a product reason beats "open playUrl".
 - Netlify Database, Blobs, Identity, forms, required Functions — no dynamic catalog data in v1. Contact is mailto (AD-13).
+- Catalog analytics (AD-14) — after the first site ships: new GA4 web stream for this domain, ID in Netlify env, never the game's measurement ID.
 - i18n, auth, user accounts.
 - Changelog/blog on this host — portfolio already holds Xal's Path posts; link out if needed.
 - Remake trailer YouTube URL — set `hero.trailer.status` to `ready` and fill `hero.trailer.url` when it exists.

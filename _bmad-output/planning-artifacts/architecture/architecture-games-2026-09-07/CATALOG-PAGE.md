@@ -67,4 +67,4 @@ Match the live game: dark (`#0d1a0d` range), Press Start 2P, BAM/region art. Pul
 
 - Nuxt UI starter + Content. `index.vue` sole Content reader.
 - `hero.trailer.status: placeholder` until a remake trailer URL exists.
-- Own GA4 stream in Netlify env. Email only in `app.config.ts`.
+- Email only in `app.config.ts`. Analytics is a later step (AD-14).
