@@ -11,3 +11,10 @@ This site lists games by Kevin Logan. The first entry is [Xal's Path](https://gi
 ## Development
 
 This repo is the catalog site only. Individual games live in their own repositories.
+
+Stack (planned): Nuxt, Nuxt UI, Tailwind. Deployed on Netlify.
+
+v1: the homepage is the Xal's Path catalog landing, not a multi-game grid. Architecture:
+
+- [_bmad-output/planning-artifacts/architecture/architecture-games-2026-09-07/ARCHITECTURE-SPINE.md](_bmad-output/planning-artifacts/architecture/architecture-games-2026-09-07/ARCHITECTURE-SPINE.md)
+- [_bmad-output/planning-artifacts/architecture/architecture-games-2026-09-07/CATALOG-PAGE.md](_bmad-output/planning-artifacts/architecture/architecture-games-2026-09-07/CATALOG-PAGE.md)
