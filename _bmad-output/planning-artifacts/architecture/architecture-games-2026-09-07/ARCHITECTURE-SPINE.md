@@ -99,7 +99,7 @@ flowchart LR
 
 - **Binds:** `CATALOG-PAGE.md`, featured-game Content schema, nav anchors
 - **Prevents:** dropping Play, reviving store "Coming Soon" as current availability, or inventing a different section set per builder
-- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Music**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. `playUrl` is required. The primary control label is **Play**, never **Download**. Do not mention App Store or Google Play. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config. Footer includes a `mailto:` to the site email.
+- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. Sticky nav with anchors Story / Gameplay / Play; normal document scroll (no scroll-snap). Hero is the hook (art, pitch, Play). Play is the close (same `playUrl`, hints, soundtrack button, GitHub) — not a restatement of Hero. Soundtrack is a button on Play, not its own section and not an embed. `playUrl` is required. The primary control label is **Play**, never **Download**. Do not mention App Store or Google Play. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config. Footer includes a `mailto:` to the site email.
 
 ### AD-9 — Portfolio is a construction reference, not a skin [ADOPTED]
 
@@ -111,7 +111,7 @@ flowchart LR
 
 - **Binds:** `content/games/*.yml`, Content collection schema, `index.vue` props
 - **Prevents:** flat vs nested YAML forks; sections inventing their own field names
-- **Rule:** each game document is one YAML file with this root shape (no alternate nesting): `slug`, `seo.title`, `seo.description`, `playUrl`, `repoUrl`, `hero` (`title`, `subtitle`, `pitch`, `trailer.status` of `placeholder` or `ready`, `trailer.url` required only when `ready`, `background`), `story` (`title`, `body`, `media`), `gameplay` (`title`, `slides` of `title`, `description`, `image`), `music` (`title`, `soundtrackUrl`, `background`), `play` (`title`, `body`, `desktopHint`, `mobileHint`), `theme` (`primary`, `accent`, `font`, `colorMode`). Extra keys are allowed; required keys are not renamed.
+- **Rule:** each game document is one YAML file with this root shape (no alternate nesting): `slug`, `seo.title`, `seo.description`, `playUrl`, `repoUrl`, `hero` (`title`, `subtitle`, `pitch`, `trailer.status` of `placeholder` or `ready`, `trailer.url` required only when `ready`, `background`), `story` (`title`, `body`, `media`), `gameplay` (`title`, `slides` of `title`, `description`, `image`), `play` (`title`, `body`, `desktopHint`, `mobileHint`, `soundtrackUrl`), `theme` (`primary`, `accent`, `font`, `colorMode`). Extra keys are allowed; required keys are not renamed.
 
 ### AD-11 — Vendored catalog assets [ADOPTED]
 
@@ -141,7 +141,7 @@ flowchart LR
 
 | Concern | Convention |
 | --- | --- |
-| Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Vue sections `GameHero`, `GameStory`, `GameGameplay`, `GameMusic`, `GamePlay`. Chrome: `AppHeader`, `AppFooter`. |
+| Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Vue sections `GameHero`, `GameStory`, `GameGameplay`, `GamePlay`. Chrome: `AppHeader`, `AppFooter`. |
 | Data | Dates ISO-8601. Play/trailer/soundtrack/repo URLs absolute HTTPS. Media paths site-root. IDs are slugs. Collection defined in `content.config.ts`. |
 | State | Catalog is static; no client catalog store. Color mode is `theme.colorMode` on the featured document, applied once by `index.vue`. `play.desktopHint` vs `play.mobileHint` is CSS viewport (match the game's 768px phone/desktop split), not two destinations. |
 | Config | `featuredSlug`, email (`kevinmlogan7@gmail.com`), author/social/legal chrome only in `app.config.ts`. Game strings only in Content. |
@@ -199,7 +199,6 @@ erDiagram
   GAME ||--|| HERO : hero
   GAME ||--|| STORY : story
   GAME ||--|| GAMEPLAY : gameplay
-  GAME ||--|| MUSIC : music
   GAME ||--|| PLAY : play
   GAME ||--|| THEME : theme
   GAMEPLAY ||--|{ SLIDE : slides
