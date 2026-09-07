@@ -118,7 +118,7 @@ Radius is 0. Controls are rectangles with 2px borders. Carousel chevrons are dra
 
 ### Do:
 - **Do** vendor remake art under `public/games/<slug>/` and let missing media fall back to a BAM field.
-- **Do** keep Game* components props-only; copy and URLs live in Content.
+- **Do** keep copy and URLs in Content; `index.vue` is the only Content reader.
 - **Do** show `mobileHint` below 768px and `desktopHint` at 768px and up.
 
 ### Don't:

@@ -1,0 +1,10 @@
+---
+description: Keep related code in fewer well-sized files instead of many tiny ones
+alwaysApply: true
+---
+
+# File size
+
+Optimize for Cursor performance by consolidating related code into fewer files of up to about 500 lines each. Prefer one well-sized file over many tiny (~100-line) files for the same concern. Split only when a file would meaningfully exceed ~500 lines or when separation of concerns clearly requires it.
+
+The featured landing lives in `app/pages/index.vue`. Do not split Nav, Hero, Story, Gameplay, Play, or Footer into separate Vue files unless that page exceeds ~500 lines.

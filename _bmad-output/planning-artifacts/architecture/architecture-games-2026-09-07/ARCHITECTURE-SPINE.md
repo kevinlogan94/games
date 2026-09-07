@@ -22,25 +22,23 @@ companions:
 
 ## Design Paradigm
 
-**Content-driven themed storefront.** The catalog is a presentation layer over game records. The featured record owns the landing page's sections, copy, media, and visual tokens. The Phaser/Unity runtime stays in the game repo. Nuxt pages compose; they do not invent a second source of truth for a game.
+**Content-driven themed storefront.** The catalog is a presentation layer over game records. The featured record owns the landing page's sections, copy, media, and visual tokens. The Phaser/Unity runtime stays in the game repo. `app/pages/index.vue` renders the landing from Content; it does not invent a second source of truth for a game.
 
 ```mermaid
 flowchart TB
   subgraph catalog [games.kevinmlogan.com]
     Pages[app/pages]
-    Components[app/components]
     Content[content/games]
     Public[public assets]
-    Pages --> Components
     Pages --> Content
-    Components --> Public
+    Pages --> Public
   end
   subgraph external [outside this repo]
     Play[xals-path.kevinmlogan.com]
     Trailer[hero placeholder or remake trailer]
   end
-  Components -->|"playUrl from props"| Play
-  Components -->|"trailer and soundtrack from props"| Trailer
+  Pages -->|"playUrl from Content"| Play
+  Pages -->|"trailer and soundtrack from Content"| Trailer
 ```
 
 ## Invariants & Rules
@@ -61,7 +59,7 @@ flowchart TB
 
 - **Binds:** copy, SEO, section payloads, play/trailer/music URLs
 - **Prevents:** Xal's Path strings hardcoded in `index.vue` so a second game requires a rewrite
-- **Rule:** games live under `content/games/`. The only Content read for the featured landing is `app/pages/index.vue` (or one composable it owns, used nowhere else). `Game*` components are props-only: they must not call `queryCollection`. Canonical copy lives in the document, not in Vue.
+- **Rule:** games live under `content/games/`. The only Content read for the featured landing is `app/pages/index.vue` (or one composable it owns, used nowhere else). Canonical copy lives in the document, not in Vue. Do not split the landing into tiny section components.
 
 ### AD-4 — Featured game owns the look [ADOPTED]
 
@@ -79,14 +77,13 @@ flowchart TB
 
 - **Binds:** all catalog modules
 - **Prevents:** components fetching ad-hoc URLs that bypass Content; pages importing game-repo code
-- **Rule:** `app/pages` → `app/components` → `public/` files named by Content. Components do not read `content/` themselves. Game-specific outbound URLs (`playUrl`, `hero.trailer.url`, `soundtrackUrl`, `repoUrl`) live only on the game record. Site chrome URLs (portfolio, GitHub, X, email) live only in `app.config.ts`. No component may duplicate those literals.
+- **Rule:** `app/pages/index.vue` reads Content and names `public/` files. It does not import game-repo code. Game-specific outbound URLs (`playUrl`, `hero.trailer.url`, `soundtrackUrl`, `repoUrl`) live only on the game record. Site chrome URLs (portfolio, GitHub, X, email) live only in `app.config.ts`. Do not duplicate those literals in Vue.
 
 ```mermaid
 flowchart LR
-  P[pages] --> C[components]
-  P --> D[content/games]
-  C --> A[public]
-  C -.->|URLs from props| X[external hosts]
+  P[pages] --> D[content/games]
+  P --> A[public]
+  P -.->|URLs from Content and app.config| X[external hosts]
 ```
 
 ### AD-7 — Netlify static catalog [ADOPTED]
@@ -99,7 +96,7 @@ flowchart LR
 
 - **Binds:** `CATALOG-PAGE.md`, featured-game Content schema, nav anchors
 - **Prevents:** dropping Play, reviving store "Coming Soon" as current availability, or inventing a different section set per builder
-- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. Sticky nav with anchors Story / Gameplay / Play; normal document scroll (no scroll-snap). Hero is the hook (art, pitch, Play). Play is the close (same `playUrl`, hints, soundtrack button, GitHub) — not a restatement of Hero. Soundtrack is a button on Play, not its own section and not an embed. `playUrl` is required. The primary control label is **Play**, never **Download**. Do not mention App Store or Google Play. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config. Footer includes a `mailto:` to the site email.
+- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Play**, **Footer**. All of them live in `app/pages/index.vue` (sole Content reader). Sticky nav with anchors Story / Gameplay / Play; normal document scroll (no scroll-snap). Hero is the hook (art, pitch, Play). Play is the close (same `playUrl`, hints, soundtrack button, GitHub) — not a restatement of Hero. Soundtrack is a button on Play, not its own section and not an embed. `playUrl` is required. The primary control label is **Play**, never **Download**. Do not mention App Store or Google Play. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config. Footer includes a `mailto:` to the site email.
 
 ### AD-9 — Portfolio is a construction reference, not a skin [ADOPTED]
 
@@ -141,7 +138,7 @@ flowchart LR
 
 | Concern | Convention |
 | --- | --- |
-| Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Vue sections `GameHero`, `GameStory`, `GameGameplay`, `GamePlay`. Chrome: `AppHeader`, `AppFooter`. |
+| Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Featured landing markup lives in `app/pages/index.vue`. |
 | Data | Dates ISO-8601. Play/trailer/soundtrack/repo URLs absolute HTTPS. Media paths site-root. IDs are slugs. Collection defined in `content.config.ts`. |
 | State | Catalog is static; no client catalog store. Color mode is `theme.colorMode` on the featured document, applied once by `index.vue`. `play.desktopHint` vs `play.mobileHint` is CSS viewport (match the game's 768px phone/desktop split), not two destinations. |
 | Config | `featuredSlug`, email (`kevinmlogan7@gmail.com`), author/social/legal chrome only in `app.config.ts`. Game strings only in Content. |
@@ -172,7 +169,6 @@ games/
     app.vue              # UApp shell
     app.config.ts        # featuredSlug, chrome links
     assets/css/main.css  # @import tailwindcss + @nuxt/ui; game font hooks
-    components/          # Game* landing sections + AppHeader/Footer
     pages/index.vue      # featured game landing; sole Content reader
     layouts/default.vue
   content/
@@ -215,9 +211,9 @@ erDiagram
 | --- | --- | --- |
 | Featured homepage | `app/pages/index.vue` | AD-1, AD-8, AD-10 |
 | Game copy/media/URLs | `content/games/*.yml` | AD-3, AD-6, AD-10 |
-| Themed sections | `app/components/Game*` | AD-4, AD-8 |
+| Themed sections | `app/pages/index.vue` | AD-4, AD-8 |
 | Play handoff | `playUrl` + `play.*` hints | AD-2, AD-8, AD-12 |
-| Brand/legal | `AppFooter` + `app.config.ts` | AD-5, AD-8, AD-13 |
+| Brand/legal | footer in `index.vue` + `app.config.ts` | AD-5, AD-8, AD-13 |
 | Assets | `public/games/<slug>/` | AD-5, AD-11 |
 | Deploy | `netlify.toml` + generate | AD-7 |
 | Engineering patterns | Nuxt UI starter + portfolio | AD-9 |

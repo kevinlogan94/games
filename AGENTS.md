@@ -6,6 +6,10 @@ Rules for work in this repo. Prefer these over default habits unless the user sa
 
 When planning or implementing, meet the acceptance criteria in as little code as possible. Avoid speculative abstractions, extra layers, and “just in case” structure.
 
+## File size
+
+Optimize for Cursor performance by consolidating related code into fewer files of up to about 500 lines each. Prefer one well-sized file over many tiny (~100-line) files for the same concern. Split only when a file would meaningfully exceed ~500 lines or when separation of concerns clearly requires it.
+
 ## Keep code simple
 
 Favor straightforward, readable changes. Do not over-engineer. Match existing patterns in the project you are editing.
@@ -30,6 +34,6 @@ Use pnpm at the repo root (not npm or yarn).
 
 This repo is presentation only. Do not import from game repos or embed Phaser.
 
-Game copy, media paths, and play/trailer/music URLs live in `content/games/`. Site chrome URLs live in `app.config.ts`. Pages compose; `Game*` components are props-only and must not query Content.
+Game copy, media paths, and play/trailer/music URLs live in `content/games/`. Site chrome URLs live in `app.config.ts`. `app/pages/index.vue` is the only Content reader and owns the featured landing markup. Do not split Nav/Hero/Story/Gameplay/Play/Footer into tiny section components.
 
 Vendored art lives under `public/games/<slug>/`.
