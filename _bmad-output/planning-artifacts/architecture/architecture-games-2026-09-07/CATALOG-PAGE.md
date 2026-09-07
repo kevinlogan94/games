@@ -27,11 +27,11 @@ Same bones as the old Intrigue landing (`NavBar` → `Banner` → `Story` → `G
 
 ### Nav
 
-Sticky. Wordmark is Xal's Path (not an Intrigue logo). Anchors: Story, Gameplay, Music, Play. Primary control: **Play**. Optional quiet "Kevin Logan" link to the portfolio. No Intrigue Twitter/YouTube.
+Sticky. Wordmark is Xal's Path (not an Intrigue logo). Anchors: Story, Gameplay, Music, Play. Primary control: **Play** (same `playUrl`, never Download). Optional quiet "Kevin Logan" link to the portfolio. No Intrigue Twitter/YouTube.
 
 ### Hero (was Banner)
 
-Full-bleed region art. Title lockup, subtitle "A story-driven clicker," short pitch (stranger + Xal + blight). Trailer (existing YouTube `r0CQO2x3VGY` unless replaced). **Play on the web** next to the trailer — the old page could not do this.
+Full-bleed region art. Title lockup, subtitle "A story-driven clicker," short pitch (stranger + Xal + blight). Trailer (existing YouTube `r0CQO2x3VGY` unless replaced). **Play** next to the trailer — same link as every other Play control: `https://xals-path.kevinmlogan.com`. On small viewports, one line of `play.mobileHint` under the button (Home Screen for fullscreen). Not a Download button.
 
 ### Story
 
@@ -56,13 +56,18 @@ Same job as Intrigue: one loud "Listen to the soundtrack" action to the existing
 
 ### Play (replaces Coming Soon)
 
-This is the section that must change. Mobile stores are **historical**, not shipping. The section should:
+`playUrl` is `https://xals-path.kevinmlogan.com`. One **Play** button everywhere (nav, hero, this section). Desktop plays in the browser. On a phone, Play still opens that URL; the game already shows Add to Home Screen, then fullscreen.
 
-- Send people to `playUrl` (web remake).
-- Say plainly the iOS/Android listings are retired.
-- Optionally link GitHub `kevinlogan94/xals-path` for the curious.
+The catalog **cannot** put the game on the home screen itself. Install/PWA belongs to the game origin. Do not label the button Download (that reads as App Store). Do not ship a second manifest or `beforeinstallprompt` on `games.kevinmlogan.com`.
 
-No Android/Apple badge pair implying a launch.
+This section's job:
+
+- Desktop: `play.desktopHint` — play in the browser.
+- Mobile: `play.mobileHint` — open Play, then Share/Menu → Add to Home Screen, then use the icon (same teaching the game already does, shorter).
+- Say iOS/Android store listings are retired.
+- Optional GitHub link.
+
+No Android/Apple badge pair implying a current store launch.
 
 ### Footer
 
@@ -86,12 +91,11 @@ Assets: take from `kevinlogan94/xals-path` `develop` (or new art). Do not copy f
 
 - Starter: Nuxt UI (`npm create nuxt@latest -- -t ui`) + `@nuxt/content`.
 - `index.vue` is the only Content reader; `Game*` sections get props.
-- Theme tokens and `playUrl` live on `content/games/xals-path.yml`. Featured slug lives in `app.config.ts`.
+- Theme tokens and `playUrl` (`https://xals-path.kevinmlogan.com`) live on `content/games/xals-path.yml`. Featured slug lives in `app.config.ts`.
 - Art is vendored into `public/games/xals-path/`.
 - Netlify: `pnpm generate`, publish `.output/public`, Node 24. Catalog and game ship as two sites.
 
 ## Open on purpose
 
-- Stable public `playUrl` for the remake.
 - Trailer vs a silent in-page capture in the hero.
 - PixelOperator license vs a substitute pixel font.

@@ -36,7 +36,7 @@ flowchart TB
     Components --> Public
   end
   subgraph external [outside this repo]
-    Play[Xal's Path web remake]
+    Play[xals-path.kevinmlogan.com]
     Trailer[YouTube trailer / soundtrack]
   end
   Components -->|"playUrl from props"| Play
@@ -55,7 +55,7 @@ flowchart TB
 
 - **Binds:** repo boundary, Play CTA, what may be imported
 - **Prevents:** embedding Phaser, save state, or economy code in the catalog; coupling deploys of presentation and play
-- **Rule:** this repo never hosts the play loop. `playUrl` on the game record is the only play handoff. No package or path import from `kevinlogan94/xals-path`.
+- **Rule:** this repo never hosts the play loop. `playUrl` on the game record is the only play handoff. v1 `playUrl` is `https://xals-path.kevinmlogan.com`. No package or path import from `kevinlogan94/xals-path`.
 
 ### AD-3 — One Content document per game [ADOPTED]
 
@@ -99,7 +99,7 @@ flowchart LR
 
 - **Binds:** `CATALOG-PAGE.md`, featured-game Content schema, nav anchors
 - **Prevents:** dropping Play, reviving store "Coming Soon" as current availability, or inventing a different section set per builder
-- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Music**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. `playUrl` is required. Historical store links may appear as history inside Play; they are not current CTAs. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config.
+- **Rule:** a featured-game landing contains exactly these sections, in order: **Nav**, **Hero**, **Story**, **Gameplay**, **Music**, **Play**, **Footer**. Nav and Footer are layout chrome (`AppHeader` / `AppFooter`) fed props from `index.vue`; they are not extra Content queries and not `Game*` section bodies. Hero through Play are `Game*` bodies in `index.vue`. `playUrl` is required. The primary control label is **Play**, never **Download**. Historical store links may appear as history inside Play; they are not current CTAs. Nav wordmark is the featured game title; a secondary Kevin Logan control uses site config.
 
 ### AD-9 — Portfolio is a construction reference, not a skin [ADOPTED]
 
@@ -111,7 +111,7 @@ flowchart LR
 
 - **Binds:** `content/games/*.yml`, Content collection schema, `index.vue` props
 - **Prevents:** flat vs nested YAML forks; sections inventing their own field names
-- **Rule:** each game document is one YAML file with this root shape (no alternate nesting): `slug`, `seo.title`, `seo.description`, `playUrl`, `repoUrl`, `hero` (`title`, `subtitle`, `pitch`, `trailerUrl`, `background`), `story` (`title`, `body`, `media`), `gameplay` (`title`, `slides` of `title`, `description`, `image`), `music` (`title`, `soundtrackUrl`, `background`), `play` (`title`, `body`), `theme` (`primary`, `accent`, `font`, `colorMode`). Extra keys are allowed; required keys are not renamed.
+- **Rule:** each game document is one YAML file with this root shape (no alternate nesting): `slug`, `seo.title`, `seo.description`, `playUrl`, `repoUrl`, `hero` (`title`, `subtitle`, `pitch`, `trailerUrl`, `background`), `story` (`title`, `body`, `media`), `gameplay` (`title`, `slides` of `title`, `description`, `image`), `music` (`title`, `soundtrackUrl`, `background`), `play` (`title`, `body`, `desktopHint`, `mobileHint`), `theme` (`primary`, `accent`, `font`, `colorMode`). Extra keys are allowed; required keys are not renamed.
 
 ### AD-11 — Vendored catalog assets [ADOPTED]
 
@@ -119,13 +119,19 @@ flowchart LR
 - **Prevents:** one builder copying into `public/` while another hotlinks GitHub raw or the live game CDN
 - **Rule:** raster, gif, and font files used by the catalog are committed under `public/games/<slug>/`. Content media fields are site-root paths (`/games/xals-path/...`). Do not hotlink `github.com` or `raw.githubusercontent.com` for game art. Source files from `kevinlogan94/xals-path` `develop` (AD-5), then vendor them.
 
+### AD-12 — Play is a web handoff, not a store download [ADOPTED]
+
+- **Binds:** Hero/Nav/Play CTAs, `playUrl`, `play.desktopHint`, `play.mobileHint`
+- **Prevents:** a fake Download that implies App Store/Play; catalog trying to A2HS a different origin; desktop and mobile sending people to two different products
+- **Rule:** every Play control (nav, hero, Play section) opens the same `playUrl` in the browser. Desktop copy is `play.desktopHint` (play in the browser). Mobile copy is `play.mobileHint` (open the link, then Add to Home Screen for fullscreen). Show `desktopHint` at 768px and up, `mobileHint` below 768px; never two buttons or two URLs. The catalog must not call `beforeinstallprompt`, must not ship a second manifest for the game, and must not iframe the game to install it. Add-to-Home-Screen belongs to the game origin; Xal's Path already gates portrait phones in `installGate.ts`. Store listings are historical only.
+
 ## Consistency Conventions
 
 | Concern | Convention |
 | --- | --- |
 | Naming | Game slug kebab-case matching repo when possible (`xals-path`). Content file `content/games/<slug>.yml`. Vue sections `GameHero`, `GameStory`, `GameGameplay`, `GameMusic`, `GamePlay`. Chrome: `AppHeader`, `AppFooter`. |
 | Data | Dates ISO-8601. Play/trailer/soundtrack/repo URLs absolute HTTPS. Media paths site-root. IDs are slugs. Collection defined in `content.config.ts`. |
-| State | Catalog is static; no client catalog store. Color mode is `theme.colorMode` on the featured document, applied once by `index.vue`. |
+| State | Catalog is static; no client catalog store. Color mode is `theme.colorMode` on the featured document, applied once by `index.vue`. `play.desktopHint` vs `play.mobileHint` is CSS viewport (match the game's 768px phone/desktop split), not two destinations. |
 | Config | `featuredSlug` and author/social/legal chrome only in `app.config.ts`. Game strings only in Content. |
 | Package manager | pnpm; `packageManager` field from the Nuxt UI starter. |
 | Commits | gitmoji shortcode prefix per repo convention. |
@@ -170,7 +176,7 @@ games/
 flowchart TB
   Browser --> CDN[Netlify CDN prerendered HTML]
   CDN --> Index["/ featured landing"]
-  Index -->|Play CTA| GameHost[Xal's Path host]
+  Index -->|Play CTA| GameHost[xals-path.kevinmlogan.com]
   Index -->|media| YT[YouTube]
 ```
 
@@ -198,7 +204,7 @@ erDiagram
 | Featured homepage | `app/pages/index.vue` | AD-1, AD-8, AD-10 |
 | Game copy/media/URLs | `content/games/*.yml` | AD-3, AD-6, AD-10 |
 | Themed sections | `app/components/Game*` | AD-4, AD-8 |
-| Play handoff | `playUrl` field | AD-2, AD-8 |
+| Play handoff | `playUrl` + `play.*` hints | AD-2, AD-8, AD-12 |
 | Brand/legal | `AppFooter` + `app.config.ts` | AD-5, AD-8 |
 | Assets | `public/games/<slug>/` | AD-5, AD-11 |
 | Deploy | `netlify.toml` + generate | AD-7 |
@@ -212,6 +218,6 @@ erDiagram
 - Analytics vendor — optional `nuxt-gtag` after the site is live; ID in Netlify env.
 - i18n, auth, user accounts.
 - Changelog/blog on this host — portfolio already holds Xal's Path posts; link out if needed.
-- Exact Play host URL — fill `playUrl` when the remake has a stable public origin.
 - Display font if PixelOperator cannot be licensed — `@nuxt/fonts` substitute, same pixel-RPG role; still named in `theme.font`.
+- Catalog `?from=` query on `playUrl` so the game can tailor the install gate — only if the game repo adds it.
 - `@nuxt/content` sqlite adapter — use Content 3.16 defaults on Node 24; do not copy portfolio `better-sqlite3` unless generate fails on Netlify.
