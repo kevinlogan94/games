@@ -1,0 +1,47 @@
+slug: xals-path
+seo:
+  title: Xal's Path
+  description: A story-driven idle clicker. A stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
+playUrl: https://xals-path.kevinmlogan.com
+repoUrl: https://github.com/kevinlogan94/xals-path
+hero:
+  title: Xal's Path
+  subtitle: A story-driven clicker
+  pitch: Channel Influence, uncover a morally layered story, and play in the browser.
+  trailer:
+    status: placeholder
+  background: /games/xals-path/hero.png
+story:
+  title: Story
+  body: >-
+    A mysterious stranger is summoned to a blighted realm to aid Xal, a druid,
+    in cleansing the land. The chapters ask what control is worth, whose intent
+    counts, and how good and evil shift with the teller — a story about
+    perspective, power, and the relativity of right and wrong.
+  media: /games/xals-path/story.png
+gameplay:
+  title: Gameplay
+  slides:
+    - title: Cast
+      description: Tap the playfield to spend mana and gain Influence.
+      image: /games/xals-path/gameplay-cast.png
+    - title: Buffs
+      description: Two hundred casts in a level unlock a short infinite-mana burst, once per level.
+      image: /games/xals-path/gameplay-buffs.png
+    - title: Tomes
+      description: Buy Tomes for passive Influence and creature spawns as you level.
+      image: /games/xals-path/gameplay-tomes.png
+    - title: Rewards
+      description: Local goals and capped offline Influence wait for you when you return.
+      image: /games/xals-path/gameplay-rewards.png
+play:
+  title: Play
+  body: Open the live remake in this tab. The catalog is the story; the game origin is the play.
+  desktopHint: Play in the browser at xals-path.kevinmlogan.com.
+  mobileHint: Open Play, then Add to Home Screen on the game site for fullscreen.
+  soundtrackUrl: https://www.youtube.com/watch?v=hDrSy_biKRo
+theme:
+  primary: '#0d1a0d'
+  accent: '#97752d'
+  font: Press Start 2P
+  colorMode: dark
