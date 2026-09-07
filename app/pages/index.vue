@@ -194,8 +194,8 @@ function onCarouselKey(event) {
               :src="slide.image"
               :alt="slide.title"
               class="max-h-[22rem] w-full object-contain"
-              width="400"
-              height="520"
+              width="532"
+              height="368"
             >
             <div
               v-else
