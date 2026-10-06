@@ -23,7 +23,7 @@ useSeoMeta({
 const themeStyle = {
   '--catalog-primary': game.value.theme.primary,
   '--catalog-accent': game.value.theme.accent,
-  '--font-display': `'${game.value.theme.font}', cursive`,
+  '--font-display': `'${game.value.theme.font}', sans-serif`,
   backgroundColor: game.value.theme.primary,
   color: '#fff'
 }

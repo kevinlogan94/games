@@ -37,12 +37,12 @@ Sticky nav: game wordmark, anchors Story/Gameplay/Music/Play, primary Play, quie
 
 ## Constraints
 
-Chrome URLs only in `app.config.ts`: email `kevinmlogan7@gmail.com`, GitHub `https://github.com/kevinlogan94`, portfolio `https://kevinmlogan.com`. No X until a handle exists. Type: Press Start 2P for wordmark, titles, Play; readable UI type for nav/body/captions. Palette sampled from live remake: ground `#0d1a0d`, panel `#1a2e1a`, line `#3d5c3d`, text `#fff`; primary/accent from vendored BAM art at build, not a second catalog skin. WCAG AA on body/controls; pixel titles at display size only.
+Chrome URLs only in `app.config.ts`: email `kevinmlogan7@gmail.com`, GitHub `https://github.com/kevinlogan94`, portfolio `https://kevinmlogan.com`. No X until a handle exists. Type: Nunito 700 for wordmark, titles, Play, and body. Palette sampled from live remake: ground `#0d1a0d`, panel `#1a2e1a`, line `#3d5c3d`, text `#fff`; primary/accent from vendored BAM art at build, not a second catalog skin. WCAG AA on body/controls.
 
 ## Direction contract
 
 THESIS: Featured-game themed storefront; refuse a one-card studio index and résumé chrome.
-OWN-WORLD: Dark BAM (`#0d1a0d` / `#1a2e1a` / `#3d5c3d` / `#fff`); cropped remake region art as section fields; Press Start 2P titles + readable body; pixel-border Play; no meadow/dirt/purple.
+OWN-WORLD: Dark BAM (`#0d1a0d` / `#1a2e1a` / `#3d5c3d` / `#fff`); cropped remake region art as section fields; Nunito 700 titles and body; pixel-border Play; no meadow/dirt/purple.
 STORY: Believe this is the web remake of Xal’s Path; Play in the browser.
 FIRST VIEWPORT: Sticky nav (wordmark left, anchors, Play right). Full-bleed hero art. Title + subtitle + pitch over the field. Play on the art; trailer placeholder beside or under, not a fake video. Mobile: one `play.mobileHint` line under Play.
 FORM: Architecture-pinned remake landing (CATALOG-PAGE.md). concept-seed skipped: user/brief pin beats the roll. seed: architecture-games-2026-09-07.

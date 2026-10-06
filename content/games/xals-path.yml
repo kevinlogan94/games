@@ -53,5 +53,5 @@ play:
 theme:
   primary: '#0d1a0d'
   accent: '#97752d'
-  font: Press Start 2P
+  font: Nunito
   colorMode: dark
