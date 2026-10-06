@@ -10,33 +10,33 @@ colors:
   bam-ink: "#ffffff"
 typography:
   display:
-    fontFamily: "Press Start 2P, cursive"
+    fontFamily: "Nunito, sans-serif"
     fontSize: "clamp(1.35rem, 3vw, 2rem)"
-    fontWeight: 400
+    fontWeight: 700
     lineHeight: "1.85"
     letterSpacing: "normal"
   subtitle:
-    fontFamily: "Press Start 2P, cursive"
+    fontFamily: "Nunito, sans-serif"
     fontSize: "0.75rem"
-    fontWeight: 400
+    fontWeight: 700
     lineHeight: "1.6"
     letterSpacing: "normal"
   compact:
-    fontFamily: "Press Start 2P, cursive"
+    fontFamily: "Nunito, sans-serif"
     fontSize: "0.625rem"
-    fontWeight: 400
+    fontWeight: 700
     lineHeight: "1.6"
     letterSpacing: "normal"
   body:
-    fontFamily: "Public Sans, Segoe UI, sans-serif"
+    fontFamily: "Nunito, sans-serif"
     fontSize: "1rem"
-    fontWeight: 400
+    fontWeight: 700
     lineHeight: "1.7"
     letterSpacing: "normal"
   caption:
-    fontFamily: "Public Sans, Segoe UI, sans-serif"
+    fontFamily: "Nunito, sans-serif"
     fontSize: "0.875rem"
-    fontWeight: 400
+    fontWeight: 700
     lineHeight: "1.6"
     letterSpacing: "normal"
 rounded:
@@ -68,15 +68,15 @@ components:
 
 ## Overview
 
-**Creative North Star: "Title screen for the blighted realm."** The catalog landing is the Phaser remake’s frontispiece: dark BAM ground, cropped region art, pixel wordmark, one Play handoff. It is not a studio grid, not a résumé, and not the retired meadow marketing site.
+**Creative North Star: "Title screen for the blighted realm."** The catalog landing is the Phaser remake’s frontispiece: dark BAM ground, cropped region art, Nunito wordmark, one Play handoff. It is not a studio grid, not a résumé, and not the retired meadow marketing site.
 
 **Key Characteristics:**
 - Full-bleed remake art with a left/bottom shade so type sits on the realm, not on a card
-- Press Start 2P for wordmark, titles, and Play; Public Sans for everything people read
+- Nunito 700 for wordmark, titles, Play, and body, matching the live remake
 - Square pixel borders, no radius, gold only as accent (subtitle, Play hover, active carousel)
 - Soundtrack lives on Play as a quiet outbound button, never its own section
 
-**The Realm Rule.** If the art were removed, the page should still read as Xal’s Path: forest-black, moss line, gold, pixel type.
+**The Realm Rule.** If the art were removed, the page should still read as Xal’s Path: forest-black, moss line, gold, Nunito type.
 
 ## Colors
 
@@ -86,9 +86,9 @@ Ground `#0d1a0d`, panel `#1a2e1a`, line `#3d5c3d`, ink `#fff`, mist `#c5d4c5`, g
 
 ## Typography
 
-Display is Press Start 2P at small sizes with generous leading (pixel fonts clip). Body stays in Public Sans, roughly 38rem measure. Do not use PixelOperator unless a license is confirmed.
+Display and body are Nunito weight 700 from Google Fonts, matching Xal’s Path develop. Body stays at a roughly 38rem measure. Do not use PixelOperator unless a license is confirmed.
 
-**The Pixel Title Rule.** Wordmark, section titles, and Play use the display face. Nav anchors, body, hints, and footer use the readable face.
+**The Nunito Rule.** Wordmark, section titles, Play, and body all use Nunito 700. Hierarchy is size and color, not a second family.
 
 ## Layout
 

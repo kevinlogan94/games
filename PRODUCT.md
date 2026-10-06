@@ -54,7 +54,7 @@ Undecided: second-game IA, in-catalog play, catalog `?from=` on playUrl, remake 
 - First listed game: Xal’s Path, a story-driven idle/clicker; a stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
 - Do not revive Intrigue Games branding or the retired meadow marketing site as current identity.
 - Catalog look follows the live remake: dark BAM ground (`#0d1a0d`), not the portfolio and not Intrigue meadow.
-- Type: Press Start 2P for wordmark, section titles, and Play. Readable UI type for nav, body, and captions. Do not use PixelOperator unless a license is confirmed.
+- Type: Nunito weight 700 for display and body, matching Xal’s Path develop (Google Fonts, no local files). Do not use PixelOperator unless a license is confirmed.
 - Site chrome: GitHub `https://github.com/kevinlogan94`, portfolio `https://kevinmlogan.com`, Contact mailto. No X until a handle is provided.
 
 ## Evidence on Hand

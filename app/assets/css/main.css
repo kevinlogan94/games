@@ -2,8 +2,8 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: "Public Sans", "Segoe UI", sans-serif;
-  --font-display: "Press Start 2P", cursive;
+  --font-sans: "Nunito", sans-serif;
+  --font-display: "Nunito", sans-serif;
 
   --color-bam-ground: #0d1a0d;
   --color-bam-panel: #1a2e1a;
@@ -40,6 +40,7 @@ html {
 body {
   background: var(--color-bam-ground);
   color: var(--color-bam-ink);
+  font-weight: 700;
 }
 
 ::selection {
