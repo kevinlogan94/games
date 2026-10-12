@@ -9,6 +9,7 @@ release:
   scale: major
   line: Rebuilt for the browser. Desktop, tablet, and phone.
   note: Rebuilt in Phaser 3.
+  badge: Early access
 hero:
   title: Xal's Path
   subtitle: A story-driven clicker game

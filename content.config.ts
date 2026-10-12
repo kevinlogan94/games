@@ -17,7 +17,8 @@ export default defineContentConfig({
           version: z.string(),
           scale: z.enum(['major', 'patch']),
           line: z.string(),
-          note: z.string()
+          note: z.string(),
+          badge: z.string().optional()
         }),
         hero: z.object({
           title: z.string(),

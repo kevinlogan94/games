@@ -105,6 +105,12 @@ function onCarouselKey(event) {
       <div class="catalog-hero-veil absolute inset-0" />
       <div class="relative mx-auto flex min-h-[calc(100dvh-4.75rem)] max-w-5xl flex-col justify-end gap-10 px-4 pb-12 pt-16 min-[768px]:flex-row min-[768px]:items-end min-[768px]:justify-between">
         <div class="catalog-hero-copy max-w-xl text-bam-ink">
+          <p
+            v-if="game.release.badge"
+            class="mb-3 inline-block border-2 border-[var(--catalog-accent)] px-2.5 py-1 font-display text-[0.625rem] leading-none text-[var(--catalog-accent)]"
+          >
+            {{ game.release.badge }}
+          </p>
           <h1 class="font-display text-[1.35rem] leading-[1.9] min-[768px]:text-[2rem] min-[768px]:leading-[1.85]">
             {{ game.hero.title }}
           </h1>
