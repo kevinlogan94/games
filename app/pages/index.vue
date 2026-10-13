@@ -95,7 +95,7 @@ function onCarouselKey(event) {
 
     <section class="relative min-h-[calc(100dvh-4.75rem)] bg-bam-ground">
       <div
-        class="absolute inset-0 bg-cover bg-center bg-no-repeat min-[768px]:bg-[center_top]"
+        class="absolute inset-0 bg-cover bg-no-repeat bg-[center_78%]"
         :style="{ backgroundImage: game.hero.background ? `url(${game.hero.background})` : undefined }"
         role="img"
         :aria-label="game.hero.title"
@@ -104,19 +104,19 @@ function onCarouselKey(event) {
       <div class="catalog-hero-veil absolute inset-0" />
       <div class="relative mx-auto flex min-h-[calc(100dvh-4.75rem)] max-w-5xl flex-col justify-end px-4 pb-12 pt-16">
         <div class="catalog-hero-copy max-w-xl text-bam-ink">
-          <h1 class="font-display text-[1.35rem] leading-tight min-[768px]:text-[2rem]">
+          <h1 class="catalog-hero-title text-bam-ink">
             {{ game.hero.title }}
           </h1>
-          <p class="font-display mt-4 text-xs leading-relaxed text-[var(--catalog-accent-ink)]">
+          <p class="font-display mt-5 text-sm leading-relaxed text-[var(--catalog-accent-ink)]">
             {{ game.hero.subtitle }}
           </p>
           <p class="mt-5 max-w-[38rem] text-base leading-relaxed text-bam-mist">
             {{ game.hero.pitch }}
           </p>
-          <div class="mt-7">
+          <div class="mt-8">
             <a
               :href="game.playUrl"
-              class="catalog-play"
+              class="catalog-play catalog-play--hero"
             >
               Play
             </a>
