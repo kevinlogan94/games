@@ -102,7 +102,7 @@ function onCarouselKey(event) {
       />
       <div class="catalog-hero-shade absolute inset-0" />
       <div class="catalog-hero-veil absolute inset-0" />
-      <div class="relative mx-auto flex min-h-[calc(100dvh-4.75rem)] max-w-5xl flex-col justify-end gap-10 px-4 pb-12 pt-16 min-[768px]:flex-row min-[768px]:items-end min-[768px]:justify-between">
+      <div class="relative mx-auto flex min-h-[calc(100dvh-4.75rem)] max-w-5xl flex-col justify-end px-4 pb-12 pt-16">
         <div class="catalog-hero-copy max-w-xl text-bam-ink">
           <p
             v-if="game.release.badge"
@@ -131,27 +131,6 @@ function onCarouselKey(event) {
             </p>
           </div>
         </div>
-        <aside class="w-full max-w-sm border-2 border-bam-line bg-bam-panel/90 p-3">
-          <div
-            class="aspect-video border border-bam-line bg-bam-ground bg-cover bg-center"
-            :style="{ backgroundImage: game.hero.background ? `url(${game.hero.background})` : undefined }"
-          />
-          <a
-            v-if="game.hero.trailer.status === 'ready' && game.hero.trailer.url"
-            :href="game.hero.trailer.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-3 block text-sm text-bam-ink underline decoration-bam-line underline-offset-4 hover:text-[var(--catalog-accent)]"
-          >
-            {{ game.hero.trailer.caption }}
-          </a>
-          <p
-            v-else
-            class="mt-3 text-sm text-bam-mist"
-          >
-            {{ game.hero.trailer.caption }}
-          </p>
-        </aside>
       </div>
     </section>
 
