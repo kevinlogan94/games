@@ -70,7 +70,7 @@ function onCarouselKey(event) {
       <nav class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-sm text-bam-ink">
         <a
           href="/"
-          class="font-display me-auto shrink-0 text-[0.625rem] leading-snug text-bam-ink min-[768px]:text-xs"
+          class="font-display me-auto shrink-0 text-xs leading-snug text-bam-ink"
         >
           {{ game.hero.title }}
         </a>
@@ -86,7 +86,7 @@ function onCarouselKey(event) {
         </a>
         <a
           :href="config.portfolio"
-          class="hidden text-xs text-bam-mist/80 hover:text-bam-mist min-[768px]:inline"
+          class="hidden text-xs text-bam-mist hover:text-bam-ink min-[768px]:inline"
         >
           Kevin Logan
         </a>
@@ -104,13 +104,7 @@ function onCarouselKey(event) {
       <div class="catalog-hero-veil absolute inset-0" />
       <div class="relative mx-auto flex min-h-[calc(100dvh-4.75rem)] max-w-5xl flex-col justify-end px-4 pb-12 pt-16">
         <div class="catalog-hero-copy max-w-xl text-bam-ink">
-          <p
-            v-if="game.release.badge"
-            class="mb-3 inline-block border-2 border-[var(--catalog-accent)] px-2.5 py-1 font-display text-xs leading-none text-[var(--catalog-accent-ink)]"
-          >
-            {{ game.release.badge }}
-          </p>
-          <h1 class="font-display text-[1.35rem] leading-[1.9] min-[768px]:text-[2rem] min-[768px]:leading-[1.85]">
+          <h1 class="font-display text-[1.35rem] leading-tight min-[768px]:text-[2rem]">
             {{ game.hero.title }}
           </h1>
           <p class="font-display mt-4 text-xs leading-relaxed text-[var(--catalog-accent-ink)]">
@@ -136,7 +130,7 @@ function onCarouselKey(event) {
 
     <section
       id="story"
-      class="scroll-mt-[4.75rem] bg-bam-ground px-4 py-20 text-bam-ink min-[768px]:py-28"
+      class="scroll-mt-[4.75rem] bg-bam-ground px-4 py-20 text-bam-ink"
     >
       <div class="mx-auto grid max-w-5xl items-center gap-10 min-[768px]:grid-cols-[minmax(0,16rem)_1fr] min-[768px]:gap-14">
         <div class="border-2 border-bam-line bg-bam-panel p-2">
@@ -167,7 +161,7 @@ function onCarouselKey(event) {
 
     <section
       id="gameplay"
-      class="scroll-mt-[4.75rem] bg-bam-panel px-4 py-20 text-bam-ink min-[768px]:py-28"
+      class="scroll-mt-[4.75rem] bg-bam-panel px-4 py-20 text-bam-ink"
     >
       <div class="mx-auto max-w-5xl">
         <h2 class="font-display mb-8 text-base leading-relaxed min-[768px]:text-lg">
@@ -189,7 +183,7 @@ function onCarouselKey(event) {
               :key="item.title || i"
               type="button"
               role="tab"
-              class="font-display inline-flex h-11 min-w-11 flex-1 items-center justify-center border-b-2 px-3 text-[0.625rem] leading-none min-[768px]:text-xs"
+              class="font-display inline-flex h-11 min-w-11 flex-1 items-center justify-center border-b-2 px-3 text-xs leading-none"
               :class="i === slideIndex
                 ? 'border-[var(--catalog-accent)] bg-bam-panel text-[var(--catalog-accent-ink)]'
                 : 'border-transparent text-bam-mist hover:bg-bam-panel hover:text-bam-ink'"
@@ -283,7 +277,7 @@ function onCarouselKey(event) {
 
     <section
       id="play"
-      class="scroll-mt-[4.75rem] border-t border-bam-line bg-bam-ground px-4 py-20 text-bam-ink min-[768px]:py-28"
+      class="scroll-mt-[4.75rem] border-t border-bam-line bg-bam-ground px-4 py-20 text-bam-ink"
     >
       <div class="mx-auto max-w-5xl">
         <h2 class="font-display mb-5 text-base leading-relaxed min-[768px]:text-lg">
@@ -292,18 +286,25 @@ function onCarouselKey(event) {
         <p class="mb-8 max-w-[38rem] text-base leading-relaxed text-bam-mist">
           {{ game.play.body }}
         </p>
-        <a
-          :href="game.playUrl"
-          class="catalog-play"
-        >
-          Play
-        </a>
-        <div class="mt-12">
+        <div class="flex flex-col items-start gap-4">
           <a
+            :href="game.playUrl"
+            class="catalog-play"
+          >
+            Play
+          </a>
+          <p class="max-w-sm text-sm leading-relaxed text-bam-mist min-[768px]:hidden">
+            {{ game.play.mobileHint }}
+          </p>
+          <p class="hidden max-w-[38rem] text-sm leading-relaxed text-bam-mist min-[768px]:block">
+            {{ game.play.desktopHint }}
+          </p>
+          <a
+            v-if="game.play.soundtrackUrl"
             :href="game.play.soundtrackUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="font-display inline-block border-2 border-bam-line px-4 py-2 text-[0.625rem] leading-relaxed text-bam-ink hover:bg-bam-panel"
+            class="catalog-soundtrack"
           >
             Soundtrack
           </a>
