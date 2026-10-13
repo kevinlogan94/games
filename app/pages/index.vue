@@ -197,95 +197,106 @@ function onCarouselKey(event) {
         <div
           class="border-2 border-bam-line bg-bam-ground"
           role="region"
-          aria-roledescription="carousel"
           :aria-label="game.gameplay.title"
-          tabindex="0"
           @keydown="onCarouselKey"
         >
-          <div class="flex min-h-[16rem] items-center justify-center bg-bam-ground min-[768px]:min-h-[22rem]">
-            <img
-              v-if="slide.image"
-              :src="slide.image"
-              :alt="slide.title"
-              class="max-h-[22rem] w-full object-contain"
-              width="532"
-              height="368"
-            >
-            <div
-              v-else
-              class="min-h-[16rem] w-full bg-bam-ground"
-              aria-hidden="true"
-            />
-          </div>
-          <div class="flex flex-col gap-4 border-t border-bam-line p-4 min-[768px]:flex-row min-[768px]:items-start min-[768px]:justify-between">
-            <div aria-live="polite">
-              <h3 class="font-display text-xs leading-relaxed">
-                {{ slide.title }}
-              </h3>
-              <p class="mt-2 max-w-xl text-sm leading-relaxed text-bam-mist">
-                {{ slide.description }}
-              </p>
-            </div>
-            <div class="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                class="inline-flex h-11 min-w-11 items-center justify-center border border-bam-line text-bam-ink hover:bg-bam-line"
-                aria-label="Previous slide"
-                @click="prevSlide"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M10 3L5 8l5 5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </button>
-              <button
-                type="button"
-                class="inline-flex h-11 min-w-11 items-center justify-center border border-bam-line text-bam-ink hover:bg-bam-line"
-                aria-label="Next slide"
-                @click="nextSlide"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 3l5 5-5 5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-2 border-t border-bam-line px-4 py-3">
+          <div
+            class="flex flex-wrap divide-x divide-bam-line border-b border-bam-line"
+            role="tablist"
+            aria-label="Mechanics"
+          >
             <button
               v-for="(item, i) in game.gameplay.slides"
               :key="item.title || i"
               type="button"
-              class="inline-flex h-11 w-11 items-center justify-center"
-              :aria-label="`Show ${item.title}`"
-              :aria-current="i === slideIndex ? 'true' : undefined"
+              role="tab"
+              class="font-display inline-flex h-11 min-w-11 flex-1 items-center justify-center border-b-2 px-3 text-[0.625rem] leading-none min-[768px]:text-xs"
+              :class="i === slideIndex
+                ? 'border-[var(--catalog-accent)] bg-bam-panel text-[var(--catalog-accent-ink)]'
+                : 'border-transparent text-bam-mist hover:bg-bam-panel hover:text-bam-ink'"
+              :id="`gameplay-tab-${i}`"
+              :aria-selected="i === slideIndex"
+              :tabindex="i === slideIndex ? 0 : -1"
+              aria-controls="gameplay-panel"
               @click="goSlide(i)"
             >
-              <span
-                class="block h-2.5 w-2.5 border border-bam-line"
-                :class="i === slideIndex ? 'bg-[var(--catalog-accent)]' : 'bg-transparent'"
-              />
+              {{ item.title }}
             </button>
+          </div>
+          <div
+            id="gameplay-panel"
+            role="tabpanel"
+            :aria-labelledby="`gameplay-tab-${slideIndex}`"
+          >
+            <div class="flex min-h-[16rem] items-center justify-center bg-bam-ground min-[768px]:min-h-[22rem]">
+              <img
+                v-if="slide.image"
+                :src="slide.image"
+                :alt="slide.title"
+                class="max-h-[22rem] w-full object-contain"
+                width="532"
+                height="368"
+              >
+              <div
+                v-else
+                class="min-h-[16rem] w-full bg-bam-ground"
+                aria-hidden="true"
+              />
+            </div>
+            <div class="flex flex-col gap-4 border-t border-bam-line p-4 min-[768px]:flex-row min-[768px]:items-start min-[768px]:justify-between">
+              <div aria-live="polite">
+                <h3 class="font-display text-xs leading-relaxed">
+                  {{ slide.title }}
+                </h3>
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-bam-mist">
+                  {{ slide.description }}
+                </p>
+              </div>
+              <div class="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  class="inline-flex h-11 min-w-11 items-center justify-center border border-bam-line text-bam-ink hover:bg-bam-line"
+                  aria-label="Previous mechanic"
+                  @click="prevSlide"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M10 3L5 8l5 5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  class="inline-flex h-11 min-w-11 items-center justify-center border border-bam-line text-bam-ink hover:bg-bam-line"
+                  aria-label="Next mechanic"
+                  @click="nextSlide"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M6 3l5 5-5 5"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
