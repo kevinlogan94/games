@@ -77,7 +77,6 @@ function onCarouselKey(event) {
         <div class="order-last flex w-full items-center gap-4 text-bam-mist min-[768px]:order-none min-[768px]:w-auto">
           <a href="#story" class="hover:text-bam-ink">Story</a>
           <a href="#gameplay" class="hover:text-bam-ink">Gameplay</a>
-          <a href="#play" class="hover:text-bam-ink">Play</a>
         </div>
         <a
           :href="game.playUrl"
@@ -115,16 +114,10 @@ function onCarouselKey(event) {
             {{ game.hero.title }}
           </h1>
           <p class="font-display mt-4 text-xs leading-relaxed text-[var(--catalog-accent-ink)]">
-            Version {{ game.release.version }} · {{ game.hero.subtitle }}
+            {{ game.hero.subtitle }}
           </p>
           <p class="mt-5 max-w-[38rem] text-base leading-relaxed text-bam-mist">
             {{ game.hero.pitch }}
-          </p>
-          <p
-            v-if="game.release.scale === 'major'"
-            class="mt-3 max-w-[38rem] text-base leading-relaxed text-bam-ink"
-          >
-            {{ game.release.line }}
           </p>
           <div class="mt-7">
             <a
@@ -315,13 +308,7 @@ function onCarouselKey(event) {
         >
           Play
         </a>
-        <p class="mt-4 hidden max-w-xl text-sm leading-relaxed text-bam-mist min-[768px]:block">
-          {{ game.play.desktopHint }}
-        </p>
-        <p class="mt-4 max-w-xl text-sm leading-relaxed text-bam-mist min-[768px]:hidden">
-          {{ game.play.mobileHint }}
-        </p>
-        <div class="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-bam-line pt-8">
+        <div class="mt-12">
           <a
             :href="game.play.soundtrackUrl"
             target="_blank"
@@ -330,22 +317,16 @@ function onCarouselKey(event) {
           >
             Soundtrack
           </a>
-          <a
-            :href="game.repoUrl"
-            class="text-sm text-bam-mist underline decoration-bam-line underline-offset-4 hover:text-bam-ink"
-          >
-            GitHub
-          </a>
-          <p class="text-sm text-bam-mist">
-            Version {{ game.release.version }}. {{ game.release.note }}
-          </p>
         </div>
       </div>
     </section>
 
     <footer class="border-t border-bam-line bg-bam-panel px-4 py-10 text-sm text-bam-mist">
-      <div class="mx-auto flex max-w-5xl flex-col gap-4 min-[768px]:flex-row min-[768px]:items-center min-[768px]:justify-between">
-        <p>© {{ year }} Kevin Logan</p>
+      <div class="mx-auto flex max-w-5xl flex-col gap-4 min-[768px]:flex-row min-[768px]:items-start min-[768px]:justify-between">
+        <div class="flex flex-col gap-2">
+          <p>© {{ year }} Kevin Logan</p>
+          <p>Version {{ game.release.version }}. {{ game.release.note }} {{ game.release.line }}</p>
+        </div>
         <div class="flex flex-wrap gap-x-5 gap-y-2">
           <a
             :href="`mailto:${config.email}`"
