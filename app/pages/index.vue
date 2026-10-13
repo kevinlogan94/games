@@ -107,14 +107,14 @@ function onCarouselKey(event) {
         <div class="catalog-hero-copy max-w-xl text-bam-ink">
           <p
             v-if="game.release.badge"
-            class="mb-3 inline-block border-2 border-[var(--catalog-accent)] px-2.5 py-1 font-display text-[0.625rem] leading-none text-[var(--catalog-accent)]"
+            class="mb-3 inline-block border-2 border-[var(--catalog-accent)] px-2.5 py-1 font-display text-xs leading-none text-[var(--catalog-accent-ink)]"
           >
             {{ game.release.badge }}
           </p>
           <h1 class="font-display text-[1.35rem] leading-[1.9] min-[768px]:text-[2rem] min-[768px]:leading-[1.85]">
             {{ game.hero.title }}
           </h1>
-          <p class="font-display mt-4 text-[0.625rem] leading-relaxed text-[var(--catalog-accent)] min-[768px]:text-xs">
+          <p class="font-display mt-4 text-xs leading-relaxed text-[var(--catalog-accent-ink)]">
             Version {{ game.release.version }} · {{ game.hero.subtitle }}
           </p>
           <p class="mt-5 max-w-[38rem] text-base leading-relaxed text-bam-mist">
