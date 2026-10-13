@@ -100,26 +100,21 @@ function onCarouselKey(event) {
         role="img"
         :aria-label="game.hero.title"
       />
-      <div class="catalog-hero-shade absolute inset-0" />
-      <div class="catalog-hero-veil absolute inset-0" />
-      <div class="relative mx-auto flex min-h-[calc(100dvh-4.75rem)] max-w-5xl flex-col justify-end px-4 pb-12 pt-16">
+      <div class="catalog-hero-wash absolute inset-0" />
+      <div class="relative flex min-h-[calc(100dvh-4.75rem)] flex-col justify-end px-4 pb-12 pt-16">
         <div class="catalog-hero-copy max-w-xl text-bam-ink">
-          <h1 class="catalog-hero-title text-bam-ink">
+          <div class="catalog-hero-rule" />
+          <h1 class="catalog-hero-title mt-4 text-bam-ink">
             {{ game.hero.title }}
           </h1>
-          <p class="font-display mt-5 text-sm leading-relaxed text-[var(--catalog-accent-ink)]">
+          <p class="mt-4 text-base leading-relaxed text-[var(--catalog-accent-ink)]">
             {{ game.hero.subtitle }}
           </p>
-          <p class="mt-5 max-w-[38rem] text-base leading-relaxed text-bam-mist">
+          <p class="mt-4 max-w-[38rem] text-base leading-relaxed text-bam-mist">
             {{ game.hero.pitch }}
           </p>
           <div class="mt-8">
-            <a
-              :href="game.playUrl"
-              class="catalog-play catalog-play--hero"
-            >
-              Play
-            </a>
+            <a :href="game.playUrl" class="catalog-play catalog-play--hero">Play</a>
             <p class="mt-3 max-w-sm text-sm leading-relaxed text-bam-mist min-[768px]:hidden">
               {{ game.play.mobileHint }}
             </p>

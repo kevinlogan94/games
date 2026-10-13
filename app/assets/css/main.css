@@ -118,6 +118,18 @@ button:focus-visible {
   letter-spacing: -0.03em;
 }
 
+.catalog-hero-wash {
+  background:
+    linear-gradient(to top, #0d1a0d 8%, rgb(13 26 13 / 55%) 48%, transparent 78%),
+    linear-gradient(90deg, rgb(151 117 45 / 45%) 0, transparent 42%);
+}
+
+.catalog-hero-rule {
+  height: 2px;
+  width: 8.5rem;
+  background: #b38d38;
+}
+
 .catalog-hero-shade {
   background:
     linear-gradient(
