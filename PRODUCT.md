@@ -53,8 +53,8 @@ Undecided: second-game IA, in-catalog play, catalog `?from=` on playUrl, remake 
 - Name: Kevin Logan. Site: games.kevinmlogan.com.
 - First listed game: Xal’s Path, a story-driven idle/clicker; a stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
 - Do not revive Intrigue Games branding or the retired meadow marketing site as current identity.
-- Catalog look follows the live remake: dark BAM ground (`#0d1a0d`), not the portfolio and not Intrigue meadow.
-- Type: Nunito weight 700 for display and body, matching Xal’s Path develop (Google Fonts, no local files). Do not use PixelOperator unless a license is confirmed.
+- Catalog look is the sanctum storefront: wine-black `#09060a`, amber `#fbbf24`, emerald `#34d399`. Not BAM forest, not the portfolio, not Intrigue meadow.
+- Type: Cinzel Decorative for the wordmark, Cormorant Garamond for headlines, Inter for body, JetBrains Mono for labels (Google Fonts, no local files). Do not use PixelOperator unless a license is confirmed.
 - Site chrome: GitHub `https://github.com/kevinlogan94`, portfolio `https://kevinmlogan.com`, Contact mailto. No X until a handle is provided.
 
 ## Evidence on Hand
@@ -62,7 +62,7 @@ Undecided: second-game IA, in-catalog play, catalog `?from=` on playUrl, remake 
 - README and architecture spine / catalog-page notes in `_bmad-output/planning-artifacts/architecture/architecture-games-2026-09-07/`.
 - Live play: [xals-path.kevinmlogan.com](https://xals-path.kevinmlogan.com). Game source: `kevinlogan94/xals-path` (`develop`).
 - Construction reference (engineering patterns only): Kevin’s Nuxt portfolio. Do not copy résumé IA.
-- No testimonials, press quotes, store rankings, or download counts. Do not invent them. Do not use old App Store screenshots or the old mobile YouTube trailer as current proof.
+- Six real player quotes from the original mobile release (2021–2022) ship on `/`. The 4.8 / 5 line is the average of those six. Do not invent extra testimonials, store rankings, or download counts. Do not use old App Store screenshots or the old mobile YouTube trailer as current proof.
 
 ## Product Principles
 

@@ -1,58 +1,165 @@
 slug: xals-path
 seo:
-  title: Xal's Path
-  description: A story-driven idle clicker. A stranger is summoned to a blighted realm to aid Xal, a druid, in cleansing the land.
+  title: Xal's Path — A Dark, Story-Driven Clicker RPG
+  description: You have been summoned to a blighted realm to aid Xal, a solitary druid, in cleansing the corrupted land.
 playUrl: https://xals-path.kevinmlogan.com
 repoUrl: https://github.com/kevinlogan94/xals-path
 release:
   version: '1.2'
   scale: major
-  line: Rebuilt for the browser. Desktop, tablet, and phone.
-  note: Rebuilt in Phaser 3.
-  badge: Early access
+  line: Rebuilt in Phaser 3 for the browser.
+  note: Version 1.2
+  badge: Browser Remake • Version 1.2 • Rebuilt in Phaser 3
 hero:
-  title: Xal's Path
-  subtitle: A story-driven clicker game
+  title: Xal’s Path
+  subtitle: A Dark, Story-Driven Clicker RPG
   pitch: >-
-    A stranger is summoned to a blighted realm to aid Xal, a druid,
-    in cleansing the land. Play the browser remake, with new art
-    of that world.
+    You have been summoned to a blighted realm to aid Xal, a solitary druid,
+    in cleansing the corrupted land. Experience the complete browser remaster
+    featuring reimagined pixel art and an original orchestral score.
+  badge: Browser Remake • Version 1.2 • Rebuilt in Phaser 3
+  proofRating: 4.8 / 5 Avg Rating
+  proofQuote: '"The story and the music!!"'
+  primaryCta: Enter the Realm
+  secondaryCta: Explore Mechanics
+  mobileHint: On mobile? Tap Add to Home Screen inside the game for a native fullscreen experience.
   trailer:
     status: placeholder
     caption: Before and after of this release. Coming soon.
-  background: /games/xals-path/hero.png
 story:
-  title: Story
+  kicker: // Narrative & Philosophy
+  title: Whose Intent Counts When the Blight Clears?
   body: >-
     A mysterious stranger is summoned to a blighted realm to aid Xal, a druid,
-    in cleansing the land. The chapters ask what control is worth, whose intent
-    counts, and how good and evil shift with the teller. A story about
-    perspective, power, and the relativity of right and wrong.
+    in cleansing the land. What begins as a simple ritual of gathering mana
+    and restoring nature slowly unravels into something far more personal.
+  quote: >-
+    The chapters ask what control is worth, whose intent counts, and how good
+    and evil shift with the teller. A story about perspective, power, and the
+    relativity of right and wrong.
   media: /games/xals-path/xal-idle.gif
   mediaAlt: Xal at his desk, idle animation
+  frameTitle: Sanctum Study
+  frameCaption: IDLE ANIMATION
+  stats:
+    - value: 5+
+      label: Story Chapters
+    - value: Remastered
+      label: Reimagined World Art
+    - value: Cross-Play
+      label: Desktop, Tablet & Phone
 gameplay:
-  title: Gameplay
+  kicker: // Core Loop
+  title: Channel Mana. Shape the Realm.
+  body: >-
+    Every tap ripples through the environment. Balance active spellcasting
+    with passive druidic automation as the narrative unfolds.
   slides:
-    - title: Cast
-      description: Tap the playfield to spend mana and gain Influence.
+    - code: '01'
+      kicker: Active Channeling
+      title: Cast
+      summary: Tap the playfield to spend mana and gain Influence.
+      description: >-
+        Tap the playfield to spend mana and gain Influence. Every cast ripples
+        across the blighted soil, pushing back corruption one spell at a time.
       image: /games/xals-path/gameplay-cast.png
-    - title: Buffs
-      description: Two hundred casts in a level unlock a short infinite-mana burst, once per level.
-      image: /games/xals-path/gameplay-buffs.png
-    - title: Tomes
-      description: Buy Tomes for passive Influence and creature spawns as you level.
-      image: /games/xals-path/gameplay-tomes.png
-    - title: Rewards
-      description: Local goals and capped offline Influence wait for you when you return.
-      image: /games/xals-path/gameplay-rewards.png
+    - code: '02'
+      kicker: Druidic Progression
+      title: Upgrades & Automation
+      summary: Spend Influence to unlock passive mana channeling and multipliers.
+      description: >-
+        Spend your Influence to unlock passive mana channeling and stronger
+        spell multipliers, scaling your power from a trickle of energy into
+        an unstoppable ritual.
+      image: /games/xals-path/gameplay-cast.png
+    - code: '03'
+      kicker: Resource Management
+      title: Manage the Flow
+      summary: Upgrade your sanctum's capacity and regeneration speed.
+      description: >-
+        Balance active casting against your mana reserves. Upgrade your
+        sanctum's capacity and regeneration speed so the cleansing ritual
+        never stalls.
+      image: /games/xals-path/gameplay-cast.png
+    - code: '04'
+      kicker: Narrative Twists
+      title: Unravel the Truth
+      summary: Unlock new story chapters with Xal as your Influence grows.
+      description: >-
+        Reaching Influence milestones unlocks new story chapters with Xal.
+        Question what control is really worth, and discover whose side you
+        are truly on.
+      image: /games/xals-path/gameplay-cast.png
+reviews:
+  kicker: ★ 4.8 / 5 Stars • Original Mobile Release (2021–2022)
+  title: Voices from the First Summoning
+  body: >-
+    Before its browser remaster in Phaser 3, Xal’s Path captivated mobile
+    players with its deceptively simple loop, haunting original soundtrack,
+    and narrative twists.
+  items:
+    - title: Great game!
+      quote: >-
+        I love playing this game because money is so easy to get and the
+        story and music is just simply wonderful! Can’t wait to see the next
+        game by this company!
+      author: SamWhite1899
+      meta: v1.1.1 • JUL 2022
+      stars: 5
+      tag: Story & Score
+      accent: emerald
+    - title: Amazing game
+      quote: Haven’t been more addicted to a game since I first played Doodle Jump.
+      author: OJ Song
+      meta: v1.1.0 • OCT 2021
+      stars: 5
+      tag: Addictive Loop
+      accent: amber
+    - title: What’s great about this game
+      quote: The story and the music!!
+      author: LK III
+      meta: v1.1.0 • OCT 2021
+      stars: 5
+      tag: Fan Favorite
+      accent: emerald
+    - title: New player
+      quote: Great game and great concept !! Excited to see other projects from this group !!!
+      author: Dave7187
+      meta: v1.0.0 • OCT 2021
+      stars: 5
+      tag: World & Concept
+      accent: purple
+    - title: Great
+      quote: Really have enjoyed this so far! Check it out.
+      author: BigDogRoxx
+      meta: v1.0.0 • OCT 2021
+      stars: 5
+      tag: Must Play
+      accent: stone
+    - title: Xal
+      quote: Game seems fun so far
+      author: Shawnjays
+      meta: v1.1.1 • DEC 2022
+      stars: 4
+      tag: Instant Hook
+      accent: stone
 play:
-  title: Play
-  body: Play opens the live game in this tab.
-  desktopHint: Play in the browser at xals-path.kevinmlogan.com.
-  mobileHint: Open Play, then Add to Home Screen on the game site for fullscreen.
+  title: Ready to Walk the Path?
+  body: >-
+    Jump straight into the live browser game. No downloads or installs required.
+    Or immerse yourself in the original orchestral score on YouTube.
+  primaryCta: Launch Game (xals-path.kevinmlogan.com)
+  soundtrackLabel: Listen to the Official Soundtrack
   soundtrackUrl: https://www.youtube.com/watch?v=hDrSy_biKRo
+  hint: Supports Desktop, Tablet, and Mobile browsers. Progress saves automatically in your browser.
+nav:
+  play: Play Now
+  lore: The Lore
+  mechanics: Mechanics
+  acclaim: Acclaim
+  soundtrack: Soundtrack
 theme:
-  primary: '#0d1a0d'
-  accent: '#97752d'
-  font: Nunito
+  primary: '#09060a'
+  accent: '#fbbf24'
+  font: Cinzel Decorative
   colorMode: dark

@@ -21,7 +21,10 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Nunito', provider: 'google', weights: [700] }
+      { name: 'Cinzel Decorative', provider: 'google', weights: [700, 900] },
+      { name: 'Cormorant Garamond', provider: 'google', weights: [500, 600, 700], styles: ['normal', 'italic'] },
+      { name: 'Inter', provider: 'google', weights: [400, 500, 600, 700] },
+      { name: 'JetBrains Mono', provider: 'google', weights: [400, 500] }
     ]
   },
 

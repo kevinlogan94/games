@@ -16,40 +16,27 @@ useSeoMeta({
   title: game.value.seo.title,
   description: game.value.seo.description,
   ogTitle: game.value.seo.title,
-  ogDescription: game.value.seo.description,
-  ogImage: game.value.hero.background
+  ogDescription: game.value.seo.description
 })
-
-const themeStyle = {
-  '--catalog-primary': game.value.theme.primary,
-  '--catalog-accent': game.value.theme.accent,
-  '--font-display': `'${game.value.theme.font}', sans-serif`,
-  backgroundColor: game.value.theme.primary,
-  color: '#fff'
-}
 
 const year = new Date().getFullYear()
 const slideIndex = ref(0)
-const slide = computed(() => game.value.gameplay.slides[slideIndex.value] || { title: '', description: '', image: '' })
-
-function prevSlide() {
-  const slides = game.value.gameplay.slides
-  if (!slides.length) {
-    return
-  }
-  slideIndex.value = (slideIndex.value - 1 + slides.length) % slides.length
-}
-
-function nextSlide() {
-  const slides = game.value.gameplay.slides
-  if (!slides.length) {
-    return
-  }
-  slideIndex.value = (slideIndex.value + 1) % slides.length
-}
+const slides = computed(() => game.value.gameplay.slides)
+const slide = computed(() => slides.value[slideIndex.value] || slides.value[0])
+const canvasRef = ref(null)
+let sporeFrame = 0
+let onSporeResize = null
 
 function goSlide(i) {
   slideIndex.value = i
+}
+
+function prevSlide() {
+  slideIndex.value = (slideIndex.value - 1 + slides.value.length) % slides.value.length
+}
+
+function nextSlide() {
+  slideIndex.value = (slideIndex.value + 1) % slides.value.length
 }
 
 function onCarouselKey(event) {
@@ -62,276 +49,317 @@ function onCarouselKey(event) {
     nextSlide()
   }
 }
+
+onMounted(() => {
+  const canvas = canvasRef.value
+  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return
+  }
+  const ctx = canvas.getContext('2d')
+  const particles = []
+
+  onSporeResize = () => {
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+  }
+  onSporeResize()
+  window.addEventListener('resize', onSporeResize)
+
+  for (let i = 0; i < 50; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 2.2 + 0.8,
+      vy: -(Math.random() * 0.45 + 0.15),
+      vx: (Math.random() - 0.5) * 0.25,
+      alpha: Math.random() * 0.55 + 0.15,
+      color: Math.random() > 0.45 ? '52, 211, 153' : '251, 191, 36'
+    })
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    for (const p of particles) {
+      p.y += p.vy
+      p.x += p.vx
+      if (p.y < -10) {
+        p.y = canvas.height + 10
+        p.x = Math.random() * canvas.width
+      }
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`
+      ctx.fill()
+    }
+    sporeFrame = requestAnimationFrame(draw)
+  }
+  draw()
+})
+
+onUnmounted(() => {
+  cancelAnimationFrame(sporeFrame)
+  if (onSporeResize) {
+    window.removeEventListener('resize', onSporeResize)
+  }
+})
 </script>
 
 <template>
-  <div class="min-h-dvh" :style="themeStyle">
-    <header class="sticky top-0 z-50 border-b border-bam-line bg-bam-ground">
-      <nav class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-sm text-bam-ink">
-        <a
-          href="/"
-          class="font-display me-auto shrink-0 text-xs leading-snug text-bam-ink"
-        >
-          {{ game.hero.title }}
+  <div class="min-h-dvh overflow-x-hidden bg-[#09060a] font-sans text-stone-200">
+    <canvas
+      ref="canvasRef"
+      class="pointer-events-none fixed inset-0 z-0"
+      aria-hidden="true"
+    />
+
+    <header class="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
+      <nav class="flex flex-nowrap items-center gap-6 rounded-full border border-amber-500/25 bg-[#120d14]/85 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.85)] backdrop-blur-xl sm:gap-8">
+        <a href="/" class="font-display shrink-0 whitespace-nowrap text-sm font-bold tracking-widest text-amber-300 transition-colors hover:text-white">
+          XAL'S PATH
         </a>
-        <div class="order-last flex w-full items-center gap-4 text-bam-mist min-[768px]:order-none min-[768px]:w-auto">
-          <a href="#story" class="hover:text-bam-ink">Story</a>
-          <a href="#gameplay" class="hover:text-bam-ink">Gameplay</a>
+        <div class="hidden items-center gap-6 text-xs uppercase tracking-widest text-stone-400 md:flex">
+          <a href="#story" class="hover:text-amber-300">{{ game.nav.lore }}</a>
+          <a href="#gameplay" class="hover:text-amber-300">{{ game.nav.mechanics }}</a>
+          <a href="#reviews" class="hover:text-amber-300">{{ game.nav.acclaim }}</a>
+          <a href="#soundtrack" class="hover:text-amber-300">{{ game.nav.soundtrack }}</a>
+          <a :href="config.portfolio" target="_blank" rel="noopener noreferrer" class="hover:text-white">Creator</a>
         </div>
         <a
           :href="game.playUrl"
-          class="catalog-play catalog-play--nav"
+          class="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-amber-400 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-stone-950 shadow-[0_0_15px_rgba(251,191,36,0.4)] hover:bg-amber-300"
         >
-          Play
-        </a>
-        <a
-          :href="config.portfolio"
-          class="hidden text-xs text-bam-mist hover:text-bam-ink min-[768px]:inline"
-        >
-          Kevin Logan
+          <span>{{ game.nav.play }}</span>
+          <svg class="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
         </a>
       </nav>
     </header>
 
-    <section class="relative min-h-[calc(100dvh-4.75rem)] bg-bam-ground">
-      <div
-        class="absolute inset-0 bg-cover bg-no-repeat bg-[center_78%]"
-        :style="{ backgroundImage: game.hero.background ? `url(${game.hero.background})` : undefined }"
-        role="img"
-        :aria-label="game.hero.title"
-      />
-      <div class="catalog-hero-wash absolute inset-0" />
-      <div class="relative flex min-h-[calc(100dvh-4.75rem)] flex-col justify-end px-4 pb-12 pt-16">
-        <div class="catalog-hero-copy max-w-xl text-bam-ink">
-          <div class="catalog-hero-rule" />
-          <h1 class="catalog-hero-title mt-4 text-bam-ink">
+    <main class="relative z-10">
+      <section class="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden border-b border-stone-800/70 px-6 pb-24 pt-32 text-center">
+        <div class="eclipse-halo pointer-events-none absolute top-1/2 left-1/2 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-amber-600/20 via-emerald-600/15 to-purple-900/20 blur-[90px] sm:h-[640px] sm:w-[640px]" />
+        <div class="pointer-events-none absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-500/20 sm:h-[460px] sm:w-[460px]" />
+        <div class="relative z-10 mx-auto max-w-4xl">
+          <h1 class="font-display mb-6 text-5xl font-black tracking-wider text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] sm:text-8xl">
             {{ game.hero.title }}
           </h1>
-          <p class="mt-4 text-base leading-relaxed text-[var(--catalog-accent-ink)]">
+          <p class="font-serif mb-5 text-3xl text-amber-200/90 italic sm:text-4xl">
             {{ game.hero.subtitle }}
           </p>
-          <p class="mt-4 max-w-[38rem] text-base leading-relaxed text-bam-mist">
+          <p class="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-stone-300 sm:text-lg">
             {{ game.hero.pitch }}
           </p>
-          <div class="mt-8">
-            <a :href="game.playUrl" class="catalog-play catalog-play--hero">Play</a>
-            <p class="mt-3 max-w-sm text-sm leading-relaxed text-bam-mist min-[768px]:hidden">
-              {{ game.play.mobileHint }}
-            </p>
+          <div class="mb-9">
+            <a href="#reviews" class="inline-flex items-center gap-3 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-1.5 text-xs text-amber-200 hover:border-amber-400/50">
+              <span class="tracking-widest text-amber-400">★★★★★</span>
+              <span class="font-semibold">{{ game.hero.proofRating }}</span>
+              <span class="text-stone-500">•</span>
+              <span class="italic text-stone-300">{{ game.hero.proofQuote }}</span>
+            </a>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="story"
-      class="scroll-mt-[4.75rem] bg-bam-ground px-4 py-20 text-bam-ink"
-    >
-      <div class="mx-auto grid max-w-5xl items-center gap-10 min-[768px]:grid-cols-[minmax(0,16rem)_1fr] min-[768px]:gap-14">
-        <div class="border-2 border-bam-line bg-bam-panel p-2">
-          <img
-            v-if="game.story.media"
-            :src="game.story.media"
-            :alt="game.story.mediaAlt"
-            class="mx-auto w-full max-w-xs object-contain object-center"
-            width="500"
-            height="750"
-          >
-          <div
-            v-else
-            class="aspect-[345/375] bg-bam-ground"
-            aria-hidden="true"
-          />
-        </div>
-        <div>
-          <h2 class="font-display mb-5 text-base leading-relaxed min-[768px]:text-lg">
-            {{ game.story.title }}
-          </h2>
-          <p class="max-w-[38rem] text-base leading-[1.7] text-bam-mist">
-            {{ game.story.body }}
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="gameplay"
-      class="scroll-mt-[4.75rem] bg-bam-panel px-4 py-20 text-bam-ink"
-    >
-      <div class="mx-auto max-w-5xl">
-        <h2 class="font-display mb-8 text-base leading-relaxed min-[768px]:text-lg">
-          {{ game.gameplay.title }}
-        </h2>
-        <div
-          class="border-2 border-bam-line bg-bam-ground"
-          role="region"
-          :aria-label="game.gameplay.title"
-          @keydown="onCarouselKey"
-        >
-          <div
-            class="flex flex-wrap divide-x divide-bam-line border-b border-bam-line"
-            role="tablist"
-            aria-label="Mechanics"
-          >
-            <button
-              v-for="(item, i) in game.gameplay.slides"
-              :key="item.title || i"
-              type="button"
-              role="tab"
-              class="font-display inline-flex h-11 min-w-11 flex-1 items-center justify-center border-b-2 px-3 text-xs leading-none"
-              :class="i === slideIndex
-                ? 'border-[var(--catalog-accent)] bg-bam-panel text-[var(--catalog-accent-ink)]'
-                : 'border-transparent text-bam-mist hover:bg-bam-panel hover:text-bam-ink'"
-              :id="`gameplay-tab-${i}`"
-              :aria-selected="i === slideIndex"
-              :tabindex="i === slideIndex ? 0 : -1"
-              aria-controls="gameplay-panel"
-              @click="goSlide(i)"
+          <div class="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              :href="game.playUrl"
+              class="inline-flex w-full items-center justify-center gap-3 rounded-full bg-emerald-400 px-9 py-4 text-base font-extrabold tracking-wider text-stone-950 uppercase shadow-[0_0_35px_rgba(52,211,153,0.35)] hover:bg-emerald-300 sm:w-auto"
             >
-              {{ item.title }}
-            </button>
+              <span>{{ game.hero.primaryCta }}</span>
+              <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+            </a>
+            <a
+              href="#gameplay"
+              class="inline-flex w-full items-center justify-center rounded-full border border-stone-700 bg-stone-900/80 px-8 py-4 text-sm font-semibold tracking-widest text-stone-200 uppercase hover:border-amber-400/50 hover:text-white sm:w-auto"
+            >
+              {{ game.hero.secondaryCta }}
+            </a>
           </div>
-          <div
-            id="gameplay-panel"
-            role="tabpanel"
-            :aria-labelledby="`gameplay-tab-${slideIndex}`"
-          >
-            <div class="flex min-h-[16rem] items-center justify-center bg-bam-ground min-[768px]:min-h-[22rem]">
-              <img
-                v-if="slide.image"
-                :src="slide.image"
-                :alt="slide.title"
-                class="max-h-[22rem] w-full object-contain"
-                width="532"
-                height="368"
+          <div class="inline-flex items-center gap-3 rounded-xl border border-stone-800 bg-[#120d14]/90 px-4 py-2.5 text-xs text-stone-400 shadow-lg">
+            <span class="rounded border border-amber-500/30 bg-amber-500/15 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-400 uppercase">Pro Tip</span>
+            <span>{{ game.hero.mobileHint }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="story" class="mx-auto max-w-6xl scroll-mt-28 px-6 py-28">
+        <div class="grid items-center gap-12 md:grid-cols-12">
+          <div class="flex justify-center md:col-span-5">
+            <div class="relative rounded-t-full rounded-b-2xl bg-gradient-to-b from-amber-400/50 via-emerald-500/30 to-stone-800 p-1 shadow-[0_0_50px_rgba(16,185,129,0.15)]">
+              <div class="rounded-t-full rounded-b-xl bg-[#0e0a10] px-6 pt-12 pb-6 text-center">
+                <img
+                  v-if="game.story.media"
+                  :src="game.story.media"
+                  :alt="game.story.mediaAlt"
+                  width="500"
+                  height="750"
+                  class="pixelated mx-auto mb-4 w-60 rounded-lg"
+                >
+                <div class="font-display text-sm tracking-widest text-amber-300 uppercase">{{ game.story.frameTitle }}</div>
+                <div class="mt-1 font-mono text-[11px] text-emerald-400">● {{ game.story.frameCaption }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-6 md:col-span-7">
+            <div class="inline-block font-mono text-xs tracking-[0.2em] text-amber-400/90 uppercase">
+              {{ game.story.kicker }}
+            </div>
+            <h2 class="font-serif text-4xl leading-tight font-bold text-white sm:text-6xl">
+              {{ game.story.title }}
+            </h2>
+            <p class="text-lg leading-relaxed text-stone-300">
+              {{ game.story.body }}
+            </p>
+            <blockquote class="border-l-2 border-emerald-500 py-1 pl-5 font-serif text-xl text-stone-300 italic sm:text-2xl">
+              “{{ game.story.quote }}”
+            </blockquote>
+            <div class="grid grid-cols-3 gap-4 border-t border-stone-800/80 pt-6">
+              <div v-for="(stat, i) in game.story.stats" :key="stat.label">
+                <div
+                  class="font-serif text-2xl font-bold sm:text-3xl"
+                  :class="i === 1 ? 'text-emerald-400' : i === 2 ? 'text-amber-400' : 'text-white'"
+                >
+                  {{ stat.value }}
+                </div>
+                <div class="mt-0.5 text-xs text-stone-400">{{ stat.label }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gameplay" class="scroll-mt-28 border-y border-stone-800/80 bg-[#0d090f]/90 px-6 py-28">
+        <div class="mx-auto max-w-6xl">
+          <div class="mx-auto mb-16 max-w-2xl text-center">
+            <div class="mb-2 font-mono text-xs tracking-[0.2em] text-emerald-400 uppercase">{{ game.gameplay.kicker }}</div>
+            <h2 class="font-serif mb-4 text-4xl font-bold text-white sm:text-6xl">{{ game.gameplay.title }}</h2>
+            <p class="text-stone-400">{{ game.gameplay.body }}</p>
+          </div>
+          <div class="grid items-center gap-10 lg:grid-cols-12" role="region" :aria-label="game.gameplay.title" @keydown="onCarouselKey">
+            <div class="space-y-3 lg:col-span-5" role="tablist" aria-label="Mechanics">
+              <button
+                v-for="(item, i) in slides"
+                :id="`gameplay-tab-${i}`"
+                :key="item.title"
+                type="button"
+                role="tab"
+                class="chronicle-item block w-full cursor-pointer rounded-r-xl border-l-4 py-4 pl-5 text-left text-stone-400 transition-all hover:text-stone-200"
+                :class="{ 'is-active': i === slideIndex }"
+                :aria-selected="i === slideIndex"
+                :tabindex="i === slideIndex ? 0 : -1"
+                aria-controls="gameplay-panel"
+                @click="goSlide(i)"
               >
-              <div
-                v-else
-                class="min-h-[16rem] w-full bg-bam-ground"
-                aria-hidden="true"
-              />
+                <div class="font-mono text-xs tracking-widest uppercase" :class="i % 2 ? 'text-emerald-400/80' : 'text-amber-400/80'">
+                  {{ item.code }} // {{ item.kicker }}
+                </div>
+                <div class="font-serif mt-0.5 text-2xl font-bold">{{ item.title }}</div>
+                <p class="mt-1 text-sm text-stone-400">{{ item.summary }}</p>
+              </button>
             </div>
-            <div class="flex flex-col gap-4 border-t border-bam-line p-4 min-[768px]:flex-row min-[768px]:items-start min-[768px]:justify-between">
-              <div aria-live="polite">
-                <h3 class="font-display text-xs leading-relaxed">
-                  {{ slide.title }}
-                </h3>
-                <p class="mt-2 max-w-xl text-sm leading-relaxed text-bam-mist">
-                  {{ slide.description }}
-                </p>
-              </div>
-              <div class="flex shrink-0 items-center gap-2">
-                <button
-                  type="button"
-                  class="inline-flex h-11 min-w-11 items-center justify-center border border-bam-line text-bam-ink hover:bg-bam-line"
-                  aria-label="Previous mechanic"
-                  @click="prevSlide"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    aria-hidden="true"
+            <div id="gameplay-panel" class="lg:col-span-7" role="tabpanel" :aria-labelledby="`gameplay-tab-${slideIndex}`">
+              <div class="space-y-6 rounded-2xl border border-amber-500/25 bg-[#09060a] p-6 shadow-2xl sm:p-8">
+                <div class="flex justify-center rounded-xl border border-stone-800/80 bg-[#050306] p-4">
+                  <img
+                    v-if="slide.image"
+                    :src="slide.image"
+                    :alt="slide.title"
+                    class="pixelated max-h-[340px] w-full rounded-lg object-contain"
                   >
-                    <path
-                      d="M10 3L5 8l5 5"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  class="inline-flex h-11 min-w-11 items-center justify-center border border-bam-line text-bam-ink hover:bg-bam-line"
-                  aria-label="Next mechanic"
-                  @click="nextSlide"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d="M6 3l5 5-5 5"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-                  </svg>
-                </button>
+                </div>
+                <div class="space-y-2" aria-live="polite">
+                  <div class="font-mono text-xs uppercase" :class="slideIndex % 2 ? 'text-amber-400' : 'text-emerald-400'">
+                    Slide {{ slide.code }} / 04 • {{ slide.kicker }}
+                  </div>
+                  <h3 class="font-serif text-3xl font-bold text-white">{{ slide.title }}</h3>
+                  <p class="text-base leading-relaxed text-stone-300">{{ slide.description }}</p>
+                </div>
+                <div class="flex items-center justify-between border-t border-stone-800 pt-4 font-mono text-xs text-stone-400">
+                  <button type="button" class="cursor-pointer hover:text-amber-300" @click="prevSlide">← Prev</button>
+                  <span>PHASER 3 ENGINE</span>
+                  <button type="button" class="cursor-pointer font-bold text-amber-400 hover:underline" @click="nextSlide">
+                    {{ slideIndex === slides.length - 1 ? 'Restart ↻' : 'Next Slide →' }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section
-      id="play"
-      class="scroll-mt-[4.75rem] border-t border-bam-line bg-bam-ground px-4 py-20 text-bam-ink"
-    >
-      <div class="mx-auto max-w-5xl">
-        <h2 class="font-display mb-5 text-base leading-relaxed min-[768px]:text-lg">
-          {{ game.play.title }}
-        </h2>
-        <p class="mb-8 max-w-[38rem] text-base leading-relaxed text-bam-mist">
-          {{ game.play.body }}
-        </p>
-        <div class="flex flex-col items-start gap-4">
-          <a
-            :href="game.playUrl"
-            class="catalog-play"
-          >
-            Play
-          </a>
-          <p class="max-w-sm text-sm leading-relaxed text-bam-mist min-[768px]:hidden">
-            {{ game.play.mobileHint }}
-          </p>
-          <p class="hidden max-w-[38rem] text-sm leading-relaxed text-bam-mist min-[768px]:block">
-            {{ game.play.desktopHint }}
-          </p>
-          <a
-            v-if="game.play.soundtrackUrl"
-            :href="game.play.soundtrackUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="catalog-soundtrack"
-          >
-            Soundtrack
-          </a>
+      <section id="reviews" class="scroll-mt-28 overflow-hidden py-28">
+        <div class="mx-auto mb-14 max-w-6xl px-6 text-center">
+          <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-xs tracking-widest text-amber-400 uppercase">
+            <span>{{ game.reviews.kicker }}</span>
+          </div>
+          <h2 class="font-serif mb-4 text-4xl font-bold text-white sm:text-6xl">{{ game.reviews.title }}</h2>
+          <p class="mx-auto max-w-2xl text-stone-400">{{ game.reviews.body }}</p>
         </div>
-      </div>
-    </section>
+        <div class="relative">
+          <div class="marquee-track gap-6 px-6">
+            <article
+              v-for="(item, i) in [...game.reviews.items, ...game.reviews.items]"
+              :key="`${item.author}-${i}`"
+              class="flex w-[360px] shrink-0 flex-col justify-between rounded-2xl border bg-[#110c14]/95 p-6 shadow-xl"
+              :class="`review-card--${item.accent}`"
+              :aria-hidden="i >= game.reviews.items.length"
+            >
+              <div>
+                <div class="mb-4 flex items-center justify-between">
+                  <span class="text-sm tracking-widest text-amber-400">
+                    <span>{{ '★'.repeat(item.stars) }}</span><span v-if="item.stars < 5" class="text-stone-700">{{ '★'.repeat(5 - item.stars) }}</span>
+                  </span>
+                  <span class="rounded border px-2.5 py-0.5 font-mono text-[10px] uppercase" :class="`review-tag--${item.accent}`">{{ item.tag }}</span>
+                </div>
+                <h3 class="font-serif mb-2 text-2xl font-bold text-white">“{{ item.title }}”</h3>
+                <p class="mb-6 text-sm leading-relaxed text-stone-300">“{{ item.quote }}”</p>
+              </div>
+              <div class="flex items-center justify-between border-t border-stone-800/80 pt-4 font-mono text-xs text-stone-500">
+                <span class="font-medium text-stone-300">{{ item.author }}</span>
+                <span>{{ item.meta }}</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
 
-    <footer class="border-t border-bam-line bg-bam-panel px-4 py-10 text-sm text-bam-mist">
-      <div class="mx-auto flex max-w-5xl flex-col gap-4 min-[768px]:flex-row min-[768px]:items-start min-[768px]:justify-between">
-        <div class="flex flex-col gap-2">
-          <p>© {{ year }} Kevin Logan</p>
-          <p>Version {{ game.release.version }}. {{ game.release.note }} {{ game.release.line }}</p>
+      <section id="soundtrack" class="mx-auto max-w-5xl scroll-mt-28 px-6 py-24 text-center">
+        <div class="rounded-3xl border border-amber-500/30 bg-gradient-to-b from-[#16101b] to-[#09060a] p-10 shadow-2xl sm:p-16">
+          <div class="mb-6 flex h-8 items-end justify-center gap-1.5" aria-hidden="true">
+            <div v-for="delay in [0.1, 0.3, 0, 0.4, 0.2, 0.5, 0.15]" :key="delay" class="eq-bar" :style="{ animationDelay: `${delay}s` }" />
+          </div>
+          <h2 class="font-serif mb-4 text-4xl font-bold text-white sm:text-6xl">{{ game.play.title }}</h2>
+          <p class="mx-auto mb-8 max-w-xl text-base text-stone-300 sm:text-lg">{{ game.play.body }}</p>
+          <div class="mb-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <a
+              :href="game.playUrl"
+              class="w-full rounded-full bg-amber-400 px-9 py-4 text-sm font-extrabold tracking-wider text-stone-950 uppercase shadow-[0_0_30px_rgba(251,191,36,0.35)] hover:bg-amber-300 sm:w-auto"
+            >
+              {{ game.play.primaryCta }}
+            </a>
+            <a
+              :href="game.play.soundtrackUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex w-full items-center justify-center gap-2.5 rounded-full border border-stone-700 bg-stone-900 px-8 py-4 text-sm font-semibold text-stone-200 hover:border-emerald-400 hover:text-emerald-300 sm:w-auto"
+            >
+              <svg class="h-5 w-5 fill-current text-red-500" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+              </svg>
+              <span>{{ game.play.soundtrackLabel }}</span>
+            </a>
+          </div>
+          <p class="text-xs text-stone-500">{{ game.play.hint }}</p>
         </div>
-        <div class="flex flex-wrap gap-x-5 gap-y-2">
-          <a
-            :href="`mailto:${config.email}`"
-            class="text-bam-ink underline decoration-bam-line underline-offset-4 hover:text-[var(--catalog-accent)]"
-          >
-            Contact
-          </a>
-          <a
-            :href="config.github"
-            class="hover:text-bam-ink"
-          >
-            GitHub
-          </a>
-          <a
-            :href="config.portfolio"
-            class="hover:text-bam-ink"
-          >
-            Portfolio
-          </a>
+      </section>
+    </main>
+
+    <footer class="relative z-10 border-t border-stone-900 bg-[#060407] px-6 py-12 text-sm text-stone-500">
+      <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
+        <div>
+          <p class="font-medium text-stone-300">© {{ year }} Kevin Logan</p>
+          <p class="mt-1 text-xs text-stone-500">{{ game.release.note }} • {{ game.release.line }}</p>
+        </div>
+        <div class="flex items-center gap-6 text-stone-400">
+          <a :href="`mailto:${config.email}`" class="hover:text-amber-300">Contact</a>
+          <a :href="config.github" target="_blank" rel="noopener noreferrer" class="hover:text-amber-300">GitHub</a>
+          <a :href="config.portfolio" target="_blank" rel="noopener noreferrer" class="hover:text-amber-300">Portfolio</a>
         </div>
       </div>
     </footer>
