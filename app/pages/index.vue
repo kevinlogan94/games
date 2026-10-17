@@ -24,8 +24,9 @@ const slideIndex = ref(0)
 const slides = computed(() => game.value.gameplay.slides)
 const slide = computed(() => slides.value[slideIndex.value] || slides.value[0])
 const canvasRef = ref(null)
+const heroRef = ref(null)
 let sporeFrame = 0
-let onSporeResize = null
+let sporeResizeObserver = null
 
 function goSlide(i) {
   slideIndex.value = i
@@ -58,18 +59,21 @@ function onCarouselKey(event) {
 
 onMounted(() => {
   const canvas = canvasRef.value
-  if (!canvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const hero = heroRef.value
+  if (!canvas || !hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     return
   }
   const ctx = canvas.getContext('2d')
   const particles = []
 
-  onSporeResize = () => {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+  const sizeCanvas = () => {
+    canvas.width = hero.clientWidth
+    canvas.height = hero.clientHeight
   }
-  onSporeResize()
-  window.addEventListener('resize', onSporeResize)
+  sizeCanvas()
+  requestAnimationFrame(sizeCanvas)
+  sporeResizeObserver = new ResizeObserver(sizeCanvas)
+  sporeResizeObserver.observe(hero)
 
   for (let i = 0; i < 50; i++) {
     particles.push({
@@ -104,22 +108,14 @@ onMounted(() => {
 
 onUnmounted(() => {
   cancelAnimationFrame(sporeFrame)
-  if (onSporeResize) {
-    window.removeEventListener('resize', onSporeResize)
-  }
+  sporeResizeObserver?.disconnect()
 })
 </script>
 
 <template>
   <div class="min-h-dvh overflow-x-hidden bg-[#09060a] font-sans text-stone-200">
-    <canvas
-      ref="canvasRef"
-      class="pointer-events-none fixed inset-0 z-0"
-      aria-hidden="true"
-    />
-
-    <header class="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
-      <nav class="flex flex-nowrap items-center gap-4 rounded-full border border-amber-500/25 bg-[#120d14]/85 px-5 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.85)] backdrop-blur-xl sm:gap-6 lg:gap-8 lg:px-6">
+    <header class="pointer-events-none fixed inset-x-0 top-5 z-50 flex justify-center px-4">
+      <nav class="pointer-events-auto flex flex-nowrap items-center gap-4 rounded-full border border-amber-500/25 bg-[#120d14]/95 px-5 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.85)] sm:gap-6 lg:gap-8 lg:px-6">
         <a href="/" class="font-display shrink-0 whitespace-nowrap text-sm font-bold tracking-widest text-amber-300 transition-colors hover:text-white">
           XAL'S PATH
         </a>
@@ -141,8 +137,12 @@ onUnmounted(() => {
     </header>
 
     <main class="relative z-10">
-      <section class="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden border-b border-stone-800/70 px-6 pb-24 pt-32 text-center">
-        <div class="eclipse-halo pointer-events-none absolute top-1/2 left-1/2 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-amber-600/20 via-emerald-600/15 to-purple-900/20 blur-[90px] sm:h-[640px] sm:w-[640px]" />
+      <section ref="heroRef" class="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden border-b border-stone-800/70 px-6 pb-24 pt-32 text-center">
+        <canvas
+          ref="canvasRef"
+          class="pointer-events-none absolute inset-0 z-0"
+          aria-hidden="true"
+        />
         <div class="pointer-events-none absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-500/20 sm:h-[460px] sm:w-[460px]" />
         <div class="relative z-10 mx-auto max-w-4xl">
           <h1 class="font-display mb-6 text-[clamp(3rem,8vw,6rem)] font-black tracking-[0.05em] text-white uppercase drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
