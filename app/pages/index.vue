@@ -12,11 +12,19 @@ if (!game.value) {
 
 colorMode.preference = game.value.theme.colorMode
 
+const ogImage = `${config.siteUrl}/og.png`
+
 useSeoMeta({
   title: game.value.seo.title,
   description: game.value.seo.description,
   ogTitle: game.value.seo.title,
-  ogDescription: game.value.seo.description
+  ogDescription: game.value.seo.description,
+  ogImage,
+  ogImageAlt: `${game.value.hero.title}. ${game.value.hero.subtitle}`,
+  ogImageWidth: 1200,
+  ogImageHeight: 630,
+  twitterCard: 'summary_large_image',
+  twitterImage: ogImage
 })
 
 const year = new Date().getFullYear()
