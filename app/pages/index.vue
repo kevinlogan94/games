@@ -39,14 +39,20 @@ function nextSlide() {
   slideIndex.value = (slideIndex.value + 1) % slides.value.length
 }
 
+function focusSlideTab() {
+  nextTick(() => document.getElementById(`gameplay-tab-${slideIndex.value}`)?.focus())
+}
+
 function onCarouselKey(event) {
   if (event.key === 'ArrowLeft') {
     event.preventDefault()
     prevSlide()
+    focusSlideTab()
   }
   if (event.key === 'ArrowRight') {
     event.preventDefault()
     nextSlide()
+    focusSlideTab()
   }
 }
 
@@ -113,16 +119,16 @@ onUnmounted(() => {
     />
 
     <header class="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
-      <nav class="flex flex-nowrap items-center gap-6 rounded-full border border-amber-500/25 bg-[#120d14]/85 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.85)] backdrop-blur-xl sm:gap-8">
+      <nav class="flex flex-nowrap items-center gap-4 rounded-full border border-amber-500/25 bg-[#120d14]/85 px-5 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.85)] backdrop-blur-xl sm:gap-6 lg:gap-8 lg:px-6">
         <a href="/" class="font-display shrink-0 whitespace-nowrap text-sm font-bold tracking-widest text-amber-300 transition-colors hover:text-white">
           XAL'S PATH
         </a>
-        <div class="hidden items-center gap-6 text-xs uppercase tracking-widest text-stone-400 md:flex">
-          <a href="#story" class="hover:text-amber-300">{{ game.nav.lore }}</a>
-          <a href="#gameplay" class="hover:text-amber-300">{{ game.nav.mechanics }}</a>
-          <a href="#reviews" class="hover:text-amber-300">{{ game.nav.acclaim }}</a>
-          <a href="#soundtrack" class="hover:text-amber-300">{{ game.nav.soundtrack }}</a>
-          <a :href="config.portfolio" target="_blank" rel="noopener noreferrer" class="hover:text-white">Creator</a>
+        <div class="hidden items-center gap-5 text-xs uppercase tracking-widest text-stone-400 lg:flex lg:gap-6">
+          <a href="#story" class="shrink-0 whitespace-nowrap hover:text-amber-300">{{ game.nav.lore }}</a>
+          <a href="#gameplay" class="shrink-0 whitespace-nowrap hover:text-amber-300">{{ game.nav.mechanics }}</a>
+          <a href="#reviews" class="shrink-0 whitespace-nowrap hover:text-amber-300">{{ game.nav.acclaim }}</a>
+          <a href="#soundtrack" class="shrink-0 whitespace-nowrap hover:text-amber-300">{{ game.nav.soundtrack }}</a>
+          <a :href="config.portfolio" target="_blank" rel="noopener noreferrer" class="shrink-0 whitespace-nowrap hover:text-amber-300">Creator</a>
         </div>
         <a
           :href="game.playUrl"
@@ -139,7 +145,7 @@ onUnmounted(() => {
         <div class="eclipse-halo pointer-events-none absolute top-1/2 left-1/2 h-[420px] w-[420px] rounded-full bg-gradient-to-tr from-amber-600/20 via-emerald-600/15 to-purple-900/20 blur-[90px] sm:h-[640px] sm:w-[640px]" />
         <div class="pointer-events-none absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-amber-500/20 sm:h-[460px] sm:w-[460px]" />
         <div class="relative z-10 mx-auto max-w-4xl">
-          <h1 class="font-display mb-6 text-5xl font-black tracking-wider text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)] sm:text-8xl">
+          <h1 class="font-display mb-6 text-[clamp(3rem,8vw,6rem)] font-black tracking-[0.05em] text-white uppercase drop-shadow-[0_10px_30px_rgba(0,0,0,0.9)]">
             {{ game.hero.title }}
           </h1>
           <p class="font-serif mb-5 text-3xl text-amber-200/90 italic sm:text-4xl">
@@ -149,17 +155,17 @@ onUnmounted(() => {
             {{ game.hero.pitch }}
           </p>
           <div class="mb-9">
-            <a href="#reviews" class="inline-flex items-center gap-3 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-1.5 text-xs text-amber-200 hover:border-amber-400/50">
+            <a href="#reviews" class="inline-flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full border border-amber-500/25 bg-amber-500/10 px-4 py-1.5 text-xs text-amber-200 hover:border-amber-400/50">
               <span class="tracking-widest text-amber-400">★★★★★</span>
               <span class="font-semibold">{{ game.hero.proofRating }}</span>
-              <span class="text-stone-500">•</span>
+              <span class="hidden text-stone-500 sm:inline">•</span>
               <span class="italic text-stone-300">{{ game.hero.proofQuote }}</span>
             </a>
           </div>
           <div class="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               :href="game.playUrl"
-              class="inline-flex w-full items-center justify-center gap-3 rounded-full bg-emerald-400 px-9 py-4 text-base font-extrabold tracking-wider text-stone-950 uppercase shadow-[0_0_35px_rgba(52,211,153,0.35)] hover:bg-emerald-300 sm:w-auto"
+              class="inline-flex w-full items-center justify-center gap-3 rounded-full bg-emerald-400 px-9 py-4 text-base font-bold tracking-wider text-stone-950 uppercase shadow-[0_0_35px_rgba(52,211,153,0.35)] hover:bg-emerald-300 sm:w-auto"
             >
               <span>{{ game.hero.primaryCta }}</span>
               <svg class="h-5 w-5 fill-current" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
@@ -197,10 +203,7 @@ onUnmounted(() => {
             </div>
           </div>
           <div class="space-y-6 md:col-span-7">
-            <div class="inline-block font-mono text-xs tracking-[0.2em] text-amber-400/90 uppercase">
-              {{ game.story.kicker }}
-            </div>
-            <h2 class="font-serif text-4xl leading-tight font-bold text-white sm:text-6xl">
+            <h2 class="font-serif text-[clamp(2.25rem,5vw,3.75rem)] leading-[1.15] font-bold text-white">
               {{ game.story.title }}
             </h2>
             <p class="text-lg leading-relaxed text-stone-300">
@@ -228,7 +231,7 @@ onUnmounted(() => {
         <div class="mx-auto max-w-6xl">
           <div class="mx-auto mb-16 max-w-2xl text-center">
             <div class="mb-2 font-mono text-xs tracking-[0.2em] text-emerald-400 uppercase">{{ game.gameplay.kicker }}</div>
-            <h2 class="font-serif mb-4 text-4xl font-bold text-white sm:text-6xl">{{ game.gameplay.title }}</h2>
+            <h2 class="font-serif mb-4 text-[clamp(2.25rem,5vw,3.75rem)] font-bold text-white">{{ game.gameplay.title }}</h2>
             <p class="text-stone-400">{{ game.gameplay.body }}</p>
           </div>
           <div class="grid items-center gap-10 lg:grid-cols-12" role="region" :aria-label="game.gameplay.title" @keydown="onCarouselKey">
@@ -271,9 +274,9 @@ onUnmounted(() => {
                   <p class="text-base leading-relaxed text-stone-300">{{ slide.description }}</p>
                 </div>
                 <div class="flex items-center justify-between border-t border-stone-800 pt-4 font-mono text-xs text-stone-400">
-                  <button type="button" class="cursor-pointer hover:text-amber-300" @click="prevSlide">← Prev</button>
+                  <button type="button" class="min-h-11 cursor-pointer px-1 hover:text-amber-300" @click="prevSlide">← Prev</button>
                   <span>PHASER 3 ENGINE</span>
-                  <button type="button" class="cursor-pointer font-bold text-amber-400 hover:underline" @click="nextSlide">
+                  <button type="button" class="min-h-11 cursor-pointer px-1 font-bold text-amber-400 hover:underline" @click="nextSlide">
                     {{ slideIndex === slides.length - 1 ? 'Restart ↻' : 'Next Slide →' }}
                   </button>
                 </div>
@@ -288,7 +291,7 @@ onUnmounted(() => {
           <div class="mb-3 inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1 font-mono text-xs tracking-widest text-amber-400 uppercase">
             <span>{{ game.reviews.kicker }}</span>
           </div>
-          <h2 class="font-serif mb-4 text-4xl font-bold text-white sm:text-6xl">{{ game.reviews.title }}</h2>
+          <h2 class="font-serif mb-4 text-[clamp(2.25rem,5vw,3.75rem)] font-bold text-white">{{ game.reviews.title }}</h2>
           <p class="mx-auto max-w-2xl text-stone-400">{{ game.reviews.body }}</p>
         </div>
         <div class="relative">
@@ -324,12 +327,12 @@ onUnmounted(() => {
           <div class="mb-6 flex h-8 items-end justify-center gap-1.5" aria-hidden="true">
             <div v-for="delay in [0.1, 0.3, 0, 0.4, 0.2, 0.5, 0.15]" :key="delay" class="eq-bar" :style="{ animationDelay: `${delay}s` }" />
           </div>
-          <h2 class="font-serif mb-4 text-4xl font-bold text-white sm:text-6xl">{{ game.play.title }}</h2>
+          <h2 class="font-serif mb-4 text-[clamp(2.25rem,5vw,3.75rem)] font-bold text-white">{{ game.play.title }}</h2>
           <p class="mx-auto mb-8 max-w-xl text-base text-stone-300 sm:text-lg">{{ game.play.body }}</p>
           <div class="mb-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               :href="game.playUrl"
-              class="w-full rounded-full bg-amber-400 px-9 py-4 text-sm font-extrabold tracking-wider text-stone-950 uppercase shadow-[0_0_30px_rgba(251,191,36,0.35)] hover:bg-amber-300 sm:w-auto"
+              class="inline-flex w-full items-center justify-center rounded-full bg-amber-400 px-9 py-4 text-sm font-bold tracking-wider text-stone-950 uppercase shadow-[0_0_30px_rgba(251,191,36,0.35)] hover:bg-amber-300 sm:w-auto"
             >
               {{ game.play.primaryCta }}
             </a>
