@@ -193,7 +193,7 @@ onUnmounted(() => {
               <span class="italic text-stone-300">{{ game.hero.proofQuote }}</span>
             </a>
           </div>
-          <div class="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <div class="mb-5 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               :href="game.playUrl"
               class="inline-flex w-full items-center justify-center gap-3 rounded-full bg-emerald-400 px-9 py-4 text-base font-bold tracking-wider text-stone-950 uppercase shadow-[0_0_35px_rgba(52,211,153,0.35)] hover:bg-emerald-300 sm:w-auto"
@@ -208,6 +208,9 @@ onUnmounted(() => {
               {{ game.hero.secondaryCta }}
             </a>
           </div>
+          <p class="mb-8 font-mono text-[11px] tracking-wider text-emerald-400/90 uppercase sm:text-xs sm:tracking-widest">
+            {{ game.hero.badge }}
+          </p>
           <div class="inline-flex items-center gap-3 rounded-xl border border-stone-800 bg-[#120d14]/90 px-4 py-2.5 text-xs text-stone-400 shadow-lg">
             <span class="rounded border border-amber-500/30 bg-amber-500/15 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-400 uppercase">Pro Tip</span>
             <span>{{ game.hero.mobileHint }}</span>
