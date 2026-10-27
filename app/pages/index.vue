@@ -13,18 +13,66 @@ if (!game.value) {
 colorMode.preference = game.value.theme.colorMode
 
 const ogImage = `${config.siteUrl}/og.png`
+const canonical = `${config.siteUrl}/`
+const gameSameAs = [game.value.play.soundtrackUrl, game.value.hero.trailer.url].filter(Boolean)
 
 useSeoMeta({
   title: game.value.seo.title,
   description: game.value.seo.description,
   ogTitle: game.value.seo.title,
   ogDescription: game.value.seo.description,
+  ogUrl: canonical,
+  ogType: 'website',
+  ogSiteName: game.value.hero.title,
   ogImage,
   ogImageAlt: `${game.value.hero.title}. ${game.value.hero.subtitle}`,
   ogImageWidth: 1200,
   ogImageHeight: 630,
   twitterCard: 'summary_large_image',
   twitterImage: ogImage
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: canonical }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          name: game.value.hero.title,
+          url: canonical
+        },
+        {
+          '@type': 'VideoGame',
+          name: game.value.hero.title,
+          description: game.value.seo.description,
+          url: canonical,
+          image: ogImage,
+          genre: 'Clicker RPG',
+          playMode: 'SinglePlayer',
+          gamePlatform: 'Web browser',
+          offers: {
+            '@type': 'Offer',
+            price: 0,
+            priceCurrency: 'USD'
+          },
+          sameAs: gameSameAs,
+          author: { '@id': `${canonical}#kevin-logan` }
+        },
+        {
+          '@type': 'Person',
+          '@id': `${canonical}#kevin-logan`,
+          name: 'Kevin Logan',
+          sameAs: [
+            config.portfolio,
+            config.github
+          ]
+        }
+      ]
+    })
+  }]
 })
 
 const year = new Date().getFullYear()
